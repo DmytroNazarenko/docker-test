@@ -5,7 +5,7 @@ jobs:
   test:
     runs-on: macOS
     env:
-      HOMEBREW_GITHUB_API_TOKEN= ${{ secrets.TOKEN }}
+      HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.TOKEN }}
     steps:
     - uses: actions/checkout@v2
     - name: "[Pre] Install Requirements"
