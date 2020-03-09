@@ -18,6 +18,8 @@ jobs:
     - name: "[Pre] Install Docker"
       shell: bash
       run: |
+        brew install --HEAD xhyve
+        brew install docker-machine-driver-xhyve
         brew install docker docker-machine-driver-xhyve
         sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
         sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
