@@ -4,6 +4,8 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: macOS
+    env:
+      HOMEBREW_GITHUB_API_TOKEN= ${{ secrets.TOKEN }}
     steps:
     - uses: actions/checkout@v2
     - name: "[Pre] Install Requirements"
@@ -19,11 +21,10 @@ jobs:
         brew install docker docker-machine-driver-xhyve
         sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
         sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
-        # docker-machine create --driver virtualbox --virtualbox-boot2docker-url ~/.docker/machine/cache/boot2docker.iso default
-        #  while ! docker-machine create --driver xhyve default; do
-        #    docker-machine rm -f default
-        #    sleep 1;
-        #  done
+        while ! docker-machine create --driver xhyve default; do
+          docker-machine rm -f default
+          sleep 1;
+        done
         # Export variable (this target)
         eval "$(docker-machine env default)"
         DOCKER_TLS_VERIFY="$(   docker-machine env default | grep DOCKER_TLS_VERIFY   | sed -e 's/.*="//g' -e 's/"$//g' )"
