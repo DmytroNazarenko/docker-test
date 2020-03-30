@@ -6,6 +6,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: setup-chromedriver
+      uses: nanasess/setup-chromedriver@v1.0.1
+      with:
+        # Optional: do not specify to match Chrome's version
+        chromedriver-version: '77.0.3865.40'
+    - run: |
+        export DISPLAY=:99
+        chromedriver --url-base=/wd/hub &
+        sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
     - name: Set up Node 12
       uses: actions/setup-node@v1
       with:
@@ -13,11 +22,6 @@ jobs:
     - name: Install dependencies
       run: |
         npm i
-    - name: setup-chromedriver
-      uses: nanasess/setup-chromedriver@v1.0.1
-      with:
-        # Optional: do not specify to match Chrome's version
-        chromedriver-version: '77.0.3865.40'
     - name: Chrome testing
       run: |
         node ./test.js
