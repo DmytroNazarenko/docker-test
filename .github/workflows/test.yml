@@ -6,6 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - run: sudo apt-fast install -y google-chrome
     - name: setup-chromedriver
       uses: nanasess/setup-chromedriver@v1.0.1
       with:
