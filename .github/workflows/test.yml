@@ -1,19 +1,35 @@
 name: Test
-on: [push, pull_request]
-
-jobs:
-  needs: push
-  browser-test:
-    runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Node 12
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12
-    - name: Install dependencies
-      run: |
-        npm i
-    - name: Chrome testing
-      run: |
-        node ./test.js
+on: 
+  push:
+    jobs:
+      browser-test:
+        runs-on: windows-latest
+        steps:
+        - uses: actions/checkout@v2
+        - name: Set up Node 12
+          uses: actions/setup-node@v1
+          with:
+            node-version: 12
+        - name: Install dependencies
+          run: |
+            npm i
+        - name: Chrome testing
+          run: |
+            node ./test.js
+  pull_request:
+    jobs:
+      browser-test:
+        runs-on: windows-latest
+        steps:
+        - uses: actions/checkout@v2
+        - name: Set up Node 12
+          uses: actions/setup-node@v1
+          with:
+            node-version: 12
+        - name: Install dependencies
+          run: |
+            npm i
+        - name: Chrome testing
+          run: |
+            node ./test.js
+    
