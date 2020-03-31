@@ -6,7 +6,7 @@ let chrome = require('chromedriver');
 async function main(){
     chromeCapabilities = webdriver.Capabilities.chrome();
     let chromeOptions = {
-        'args': ['--test-type', '--start-maximized', '--no-sandbox', '--headless']
+        'args': ['--no-sandbox', '--headless']
     };
     chromeCapabilities.set('chromeOptions', chromeOptions);
     driver = new webdriver.Builder()
