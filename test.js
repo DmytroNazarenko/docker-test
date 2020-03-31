@@ -13,7 +13,7 @@ async function main(){
                 .withCapabilities(chromeCapabilities)
                 .build();
     console.log('Run');
-    // driver.quit();
+    driver.quit();
 }
 
 main()
