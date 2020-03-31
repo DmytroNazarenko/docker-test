@@ -1,7 +1,6 @@
 let webdriver = require('selenium-webdriver');
 let Options = require('selenium-webdriver/chrome').Options;
 
-let chrome = require('chromedriver');
 
 async function main(){
     chromeCapabilities = webdriver.Capabilities.chrome();
