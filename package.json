@@ -1,6 +1,6 @@
 {
   "name": "test",
   "devDependencies": {
-    "selenium-webdriver": "^4.0.0-alpha.7"
+    "selenium-webdriver": "^4.0.0-alpha.5"
   }
 }
