@@ -9,9 +9,9 @@ async function main(){
         'args': ['--no-sandbox', '--headless']
     };
     chromeCapabilities.set('chromeOptions', chromeOptions);
-    // driver = new webdriver.Builder()
-    //             .withCapabilities(chromeCapabilities)
-    //             .build();
+    driver = new webdriver.Builder()
+                .withCapabilities(chromeCapabilities)
+                // .build();
     console.log('Run');
     // driver.quit();
 }
