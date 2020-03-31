@@ -5,10 +5,10 @@ require('chromedriver')
 async function main(){
     chromeCapabilities = webdriver.Capabilities.chrome();
     let chromeOptions = {
-        'args': ['--no-sandbox', '--headless', "--disable-gpu"]
+        'args': ['--test-type', '--start-maximized', '--no-sandbox']
     };
     chromeCapabilities.set('chromeOptions', chromeOptions);
-    driver = await new webdriver.Builder()
+    driver =  new webdriver.Builder()
                 .withCapabilities(chromeCapabilities)
                 .build();
     console.log('Run');
