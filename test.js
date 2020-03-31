@@ -12,6 +12,7 @@ async function main(){
                 .withCapabilities(chromeCapabilities)
                 .build();
     console.log('Run');
+    await driver.get('http://google.com');
     await driver.quit();
 }
 
