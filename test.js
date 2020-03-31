@@ -1,14 +1,14 @@
 let webdriver = require('selenium-webdriver');
 let Options = require('selenium-webdriver/chrome').Options;
-
+require('chromedriver')
 
 async function main(){
     chromeCapabilities = webdriver.Capabilities.chrome();
     let chromeOptions = {
-        'args': ['--no-sandbox', '--headless', '--disable-dev-shm-usage']
+        'args': ['--no-sandbox', '--headless', "--disable-gpu"]
     };
     chromeCapabilities.set('chromeOptions', chromeOptions);
-    driver = new webdriver.Builder()
+    driver = await new webdriver.Builder()
                 .withCapabilities(chromeCapabilities)
                 .build();
     console.log('Run');
