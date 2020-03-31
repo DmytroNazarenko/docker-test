@@ -9,7 +9,7 @@ jobs:
     - name: Set up Node 12
       uses: actions/setup-node@v1
       with:
-        node-version: 12
+        node-version: 10
     - run: which google-chrome
     - name: Install dependencies
       run: |
