@@ -1,7 +1,26 @@
 name: Test
-on: ${{ matrix.on-event }}
+on: [push, pull_request]
 jobs:
   test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        on-event: [push, pull_request]
+        node: [10, 12]
+        os: [ubuntu-latest, macOS, windows-latest]
+      max-parallel: 6
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node 12
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node }}
+    - name: Install dependencies
+      run: |
+        npm i
+  pull_request_test:
+    if: github.event_name == 'pull_request'
+    needs: test
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
