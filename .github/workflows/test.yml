@@ -1,10 +1,11 @@
 name: Test
-on: [push, pull_request]
+on: ${{ matrix.on-event }}
 jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        on-event: [push, pull_request]
         node: [10, 12]
         os: [ubuntu-latest, macOS, windows-latest]
       max-parallel: 6
