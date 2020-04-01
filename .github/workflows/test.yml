@@ -21,7 +21,6 @@ jobs:
         npm i
   pull_request_test:
     if: github.event_name == 'pull_request'
-    needs: push_test
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
