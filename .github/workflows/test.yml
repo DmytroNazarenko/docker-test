@@ -1,8 +1,9 @@
 name: Test
 on: [push, pull_request]
 jobs:
-  test:
+  push_test:
     runs-on: ${{ matrix.os }}
+    if: github.event_name == 'push'
     strategy:
       matrix:
         on-event: [push, pull_request]
@@ -20,7 +21,7 @@ jobs:
         npm i
   pull_request_test:
     if: github.event_name == 'pull_request'
-    needs: test
+    needs: push_test
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
