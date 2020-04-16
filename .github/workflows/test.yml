@@ -9,7 +9,7 @@ jobs:
       uses: shimataro/ssh-key-action@v2
       with:
         key: ${{ secrets.SSH_KEY }}
-    - run:
-        ssh: root@${{ secrets.HOST }}
+    - run: |
+        ssh root@${{ secrets.HOST }}
 
     
