@@ -5,6 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - run: |
+        cd ..;
     - uses: actions/checkout@v2
       with:
         repository: twbs/bootstrap
