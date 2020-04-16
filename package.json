@@ -2,6 +2,7 @@
   "name": "test",
   "devDependencies": {
     "selenium-webdriver": "^4.0.0-alpha.7",
-    "chromedriver": "80.0.1"
+    "chromedriver": "80.0.1",
+    "web3.js": "1.2.4"
   }
 }
