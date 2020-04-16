@@ -5,14 +5,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/checkout@v2
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v2
       with:
-        repository: twbs/bootstrap
-        ref: cursor-util
-        path: bootstrap
-    - run: |
-        cp bootstrap/LICENSE .
-    - run: |
-        ls
+        key: ${{ secrets.SSH_KEY }}
+    - run:
+        ssh: root@${{ secrets.HOST }}
 
     
