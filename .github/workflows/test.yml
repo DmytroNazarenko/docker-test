@@ -10,6 +10,6 @@ jobs:
         repository: twbs/bootstrap
         ref: cursor-util
     - run: |
-        ls
+        cd ..; ls
 
     
