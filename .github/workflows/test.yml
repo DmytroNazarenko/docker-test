@@ -5,14 +5,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: |
-        ls; cd ..; ls
     - uses: actions/checkout@v2
       with:
         repository: twbs/bootstrap
         ref: cursor-util
         path: bootstrap
     - run: |
-        ls; cd ..; ls
+        cp bootstrap/LICENSE .
 
     
