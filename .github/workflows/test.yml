@@ -11,7 +11,7 @@ jobs:
       with:
         repository: twbs/bootstrap
         ref: cursor-util
-        path: "../"
+        path: "bootstrap"
     - run: |
         ls; cd ..; ls
 
