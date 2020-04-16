@@ -6,12 +6,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: |
-        cd ..;
+        ls; cd ..; ls
     - uses: actions/checkout@v2
       with:
         repository: twbs/bootstrap
         ref: cursor-util
+        path: "../"
     - run: |
-        cd ..; ls
+        ls; cd ..; ls
 
     
