@@ -12,5 +12,7 @@ jobs:
         path: bootstrap
     - run: |
         cp bootstrap/LICENSE .
+    - run: |
+        ls
 
     
