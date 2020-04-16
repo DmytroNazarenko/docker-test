@@ -11,6 +11,8 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         known_hosts: ${{ secrets.HOST }}
     - run: |
+        ls ~/.ssh
+    - run: |
         ssh ${{ secrets.HOST }} -vv
 
     
