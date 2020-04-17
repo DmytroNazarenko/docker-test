@@ -3,14 +3,16 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
+    env: 
+      host: ${{ secrets.HOST }}
     steps:
     - uses: actions/checkout@v2
     - name: Install SSH key
       uses: shimataro/ssh-key-action@v2
       with:
         key: ${{ secrets.SSH_KEY }}
-        known_hosts: root@${{ secrets.HOST }}
+        known_hosts: root@$host
     - run: |
-        ssh -o StrictHostKeyChecking=no root@${{ secrets.HOST }} "mkdir actions"
+        ssh -o StrictHostKeyChecking=no root@${{ secrets.HOST }}
 
     
