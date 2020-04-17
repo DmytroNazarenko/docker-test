@@ -17,6 +17,7 @@ jobs:
         echo 
     - run: |
         export PORT=$((1000 + RANDOM % 10000))
-        E=$S$host:$PORT echo $E
+        export E=$S$host:$PORT 
+        echo $E
 
     
