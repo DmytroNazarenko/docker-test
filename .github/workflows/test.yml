@@ -6,6 +6,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: |
-        echo %RANDOM%
+        echo %RANDOM% > rnd.txt
 
     
