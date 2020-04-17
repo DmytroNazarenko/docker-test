@@ -8,15 +8,12 @@ jobs:
       s: "http://"
     steps:
     - uses: actions/checkout@v2
-    - name: Install SSH key
-      uses: shimataro/ssh-key-action@v2
+    - name: Set up Node
+      uses: actions/setup-node@v1
       with:
-        key: ${{ secrets.SSH_KEY }}
-        known_hosts: root@$host
-    - run: |
-        echo 
+        node-version: 10
     - run: |
         export PORT=$((1000 + RANDOM % 10000))
-        E=$s$host:$PORT test.js
+        E=$s$host:$PORT node test.js
 
     
