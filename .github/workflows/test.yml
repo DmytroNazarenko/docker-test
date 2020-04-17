@@ -14,6 +14,6 @@ jobs:
         ls /home/runner/.ssh
         chmod 600 ~/.ssh/id_rsa
     - run: |
-        ssh ${{ secrets.HOST }} -vv
+        ssh -o StrictHostKeyChecking=no ${{ secrets.HOST }} -vv
 
     
