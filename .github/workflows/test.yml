@@ -14,6 +14,6 @@ jobs:
         known_hosts: root@$host
     - run: |
         ssh -o StrictHostKeyChecking=no root@${{ secrets.HOST }}
-        scp test.js root@$host:actions/
+        scp -o StrictHostKeyChecking=no test.js root@$host:actions/
 
     
