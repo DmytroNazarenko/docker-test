@@ -6,7 +6,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: |
-        echo %RANDOM% > rnd.txt
+        set /a (%random%*10000/32768) + 1000 > rnd.txt
         ls
+        cat rnd.txt
 
     
