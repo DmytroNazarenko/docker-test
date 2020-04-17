@@ -11,7 +11,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         known_hosts: ${{ secrets.HOST }}
     - run: |
-        ls ~/.ssh
+        ls /home/runner/.ssh
         chmod 600 ~/.ssh/id_rsa
     - run: |
         ssh ${{ secrets.HOST }} -vv
