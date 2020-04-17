@@ -5,6 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     env: 
       host: ${{ secrets.HOST }}
+      s: "http://"
     steps:
     - uses: actions/checkout@v2
     - name: Install SSH key
@@ -13,8 +14,9 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         known_hosts: root@$host
     - run: |
-        export PORT=9999
+        echo 
     - run: |
-        echo $PORT
+        export PORT=$((1000 + RANDOM % 10000))
+        E=$S$host:$PORT echo $E
 
     
