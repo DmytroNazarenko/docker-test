@@ -6,7 +6,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: |
-        set /a (%RANDOM%*10000/32768) + 1000 > rnd.txt
+        set /a (%RANDOM%*10000/32768) + 1000
         ls
         cat rnd.txt
 
