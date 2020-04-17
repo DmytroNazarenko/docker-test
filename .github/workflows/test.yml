@@ -13,7 +13,8 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         known_hosts: root@$host
     - run: |
-        ssh -o StrictHostKeyChecking=no root@${{ secrets.HOST }}
-        scp -o StrictHostKeyChecking=no test.js root@$host:actions/
+        export PORT=9999
+    - run: |
+        echo $PORT
 
     
