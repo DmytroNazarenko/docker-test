@@ -6,5 +6,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: |
-        set $env:VAR_NAME="VALUE"
+        $env:VAR_NAME="VALUE"
+        $env:VAR_NAME > a.txt
+        ls
+        cat a.txt
     
