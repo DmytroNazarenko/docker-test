@@ -6,5 +6,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: |
-        set /a %RANDOM%
+        set /a rnd=%RANDOM%
+        echo %rnd%
     
