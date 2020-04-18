@@ -15,5 +15,7 @@ jobs:
     - run: |
         echo 101101 > a.txt 
         $env:test=cat a.txt
-        echo $HOST:$env:test
+        echo $env:HOST
+        echo $env:test
+        echo $env:HOST:$env:test
     
