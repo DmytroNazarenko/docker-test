@@ -13,10 +13,11 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         known_hosts: $HOST
     - run: |
-        echo 101101 > a.txt 
-        $env:test=111111
-        $env:testa=22222
-        echo $env:HOST
-        echo $env:test
-        echo $env:test:$env:testa
+        $env:test=get-random -minimum 1 -maximum 100
+        bash script.sh
+        echo $env:test$env:test`:$env:test > e
+    - run: |
+        $env:t=cat e
+        echo $env:t
+    
     

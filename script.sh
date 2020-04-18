@@ -1,1 +1,1 @@
-ssh -o StrictHostKeyChecking=no root@$HOST "mkdir $test"
+ssh -o StrictHostKeyChecking=no root@$HOST
