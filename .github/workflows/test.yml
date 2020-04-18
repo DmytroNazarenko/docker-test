@@ -7,5 +7,4 @@ jobs:
     - uses: actions/checkout@v2
     - run: |
         set $env:VAR_NAME="VALUE"
-        echo %VAR_NAME%
     
