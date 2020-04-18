@@ -6,8 +6,5 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: |
-        export A=1
-    - run: |
-        $env:test=cat a.txt
-        bash script.sh
+        test=1 bash script.sh
     
