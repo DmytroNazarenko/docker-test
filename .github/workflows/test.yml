@@ -7,7 +7,6 @@ jobs:
     - uses: actions/checkout@v2
     - run: |
         get-random -maximum 2000 -minimum 100 > a.txt
-        ls
-        $env:port=cat a.txt
-        $env:port
+        $env:test=20
+        bash script.sh
     
