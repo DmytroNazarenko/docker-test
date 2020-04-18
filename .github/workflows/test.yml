@@ -6,7 +6,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: |
-        get-random -maximum 2000 -minimum 100 > a.txt
         export A=1
     - run: |
         $env:test=cat a.txt
