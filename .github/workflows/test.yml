@@ -14,5 +14,6 @@ jobs:
         known_hosts: $HOST
     - run: |
         echo 101101 > a.txt 
-        $env:test=cat a.txt; bash script.sh
+        $env:test=cat a.txt
+        echo $HOST:$env:test
     
