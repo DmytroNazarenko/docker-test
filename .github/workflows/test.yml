@@ -14,8 +14,9 @@ jobs:
         known_hosts: $HOST
     - run: |
         echo 101101 > a.txt 
-        $env:test=cat a.txt
+        $env:test=111111
+        $env:testa=22222
         echo $env:HOST
         echo $env:test
-        echo $env:HOST:$env:test
+        echo $env:test:$env:testa
     
