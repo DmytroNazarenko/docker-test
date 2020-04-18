@@ -6,6 +6,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: |
-        set rnd=%RANDOM%
-        echo %rnd%
+        set $env:VAR_NAME="VALUE"
+        echo %VAR_NAME%
     
