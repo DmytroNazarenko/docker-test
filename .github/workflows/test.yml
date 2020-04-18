@@ -6,8 +6,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: |
-        $env:VAR_NAME="VALUE"
-        $env:VAR_NAME > a.txt
+        get-random -maximum 2000 -minimum 100 > a.txt
         ls
         cat a.txt
     
