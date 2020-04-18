@@ -6,8 +6,5 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: |
-        set /a %RANDOM% > end.txt
-        ls
-        cat end.txt
-
+        cat package.json
     
