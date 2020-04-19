@@ -9,8 +9,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install dependencies
       run: |
-        eval "export A=1"
-    - run: |
-        $env:A
+        $env:PORT=get-random -minimum 1000 -maximum 11000 > PORT
+        $env:PORT
     
     
