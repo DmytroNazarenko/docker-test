@@ -7,14 +7,10 @@ jobs:
       HOST: ${{ secrets.HOST }}
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Node 10
-      uses: actions/setup-node@v1
-      with:
-        node-version: 10
     - name: Install dependencies
       run: |
-        npm i
+        eval "export A=1"
     - run: |
-        npx mocha
+        $env:A
     
     
