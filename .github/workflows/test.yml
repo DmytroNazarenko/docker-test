@@ -9,8 +9,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install dependencies
       run: |
-        $check=Test-NetConnection -ComputerName $env:HOST -Port 4468; 
-        while ($(Test-NetConnection -ComputerName $env:HOST -Port 4467).tcpTestSucceeded -eq $true) {echo "Setup connection..."; sleep 10}
+        while ($(Test-NetConnection -ComputerName $env:HOST -Port 4460).tcpTestSucceeded -eq $false) {echo "Setup connection..."; sleep 10}
         echo $?
     
     
