@@ -10,8 +10,6 @@ jobs:
     - name: Install dependencies
       run: |
         $env:PORT=get-random -minimum 1000 -maximum 11000
-        $env:PORT > PORT
-        cat PORT
-        echo "aaaa $env:PORT"
+        ncat -z $env:HOST $env:PORT
     
     
