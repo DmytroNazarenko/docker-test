@@ -19,7 +19,7 @@ jobs:
           git tag "$TRAVIS_TAG" &&
           git push https://$GITHUB_OAUTH_TOKEN@github.com/$TRAVIS_REPO_SLUG.git $TRAVIS_TAG
           ) || true
-        - npm version $VERSION
+        - npm version $VERSION --allow-same-version
       deploy:
         - provider: releases
           api_key: "$GITHUB_OAUTH_TOKEN"
