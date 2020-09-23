@@ -1,0 +1,25 @@
+language: node_js
+node_js: 10
+
+jobs:
+  include:
+    - stage: deploy
+      if: branch IN (develop, beta, stable, master)
+      script:
+        - VERSION=$(BRANCH=$TRAVIS_BRANCH bash ./calculate.sh)
+        - echo "Version $VERSION"
+      before_deploy:
+        # Set up git user name and tag this commit
+        - (
+          test ! $TRAVIS_TAG &&
+          git config --local user.name "skale-travis" &&
+          git config --local user.email "$GITHUB_EMAIL" &&
+          export TRAVIS_TAG=$VERSION &&
+          git tag "$TRAVIS_TAG" &&
+          git push https://$GITHUB_OAUTH_TOKEN@github.com/$TRAVIS_REPO_SLUG.git $TRAVIS_TAG
+          ) || true
+      deploy:
+        - provider: npm
+          email: $NPM_EMAIL
+          api_token: $NPM_TOKEN
+          skip_cleanup: true
