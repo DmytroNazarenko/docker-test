@@ -1,18 +1,16 @@
 name: Test
 on: [push, pull_request]
-
 jobs:
-  browser-test:
+  test:
     runs-on: windows-latest
+    env:
+      HOST: ${{ secrets.HOST }}
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Node 12
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12
     - name: Install dependencies
       run: |
-        npm i
-    - name: Chrome testing
-      run: |
-        node ./test.js
+        while ((Test-NetConnection -ComputerName $env:HOST -Port 4460).tcpTestSucceeded -ne $true) \
+         {echo "Setup connection..."; sleep 10}
+        echo $?
+    
+    
