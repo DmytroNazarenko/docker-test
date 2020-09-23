@@ -4,11 +4,5 @@
   "version": "0.0.1",
   "scripts": {
     "version": "node -e \"console.log(require('./package.json').version);\""
-  },
-  "devDependencies": {
-    "selenium-webdriver": "^4.0.0-alpha.7",
-    "chromedriver": "80.0.1",
-    "web3": "1.2.4",
-    "mocha": "^6.1.4"
   }
 }
