@@ -27,7 +27,7 @@ jobs:
           name: $VERSION @ $(date +'%d.%m.%Y %R')
           on:
             repo: $TRAVIS_REPO_SLUG
-            branch: stable
+            branch: master
         - provider: releases
           api_key: "$GITHUB_OAUTH_TOKEN"
           skip_cleanup: true
@@ -36,17 +36,16 @@ jobs:
           on:
             repo: $TRAVIS_REPO_SLUG
             branch:
-              - master
               - develop
               - beta
         - provider: npm
           email: $NPM_EMAIL
           api_token: $NPM_TOKEN
           skip_cleanup: true
+          tag: beta
           on:
             repo: $TRAVIS_REPO_SLUG
             branch:
-              - stable
               - master
               - develop
               - beta
