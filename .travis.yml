@@ -6,6 +6,7 @@ jobs:
     - stage: deploy
       if: branch IN (develop, beta, stable, master)
       script:
+        - BRANCH=$TRAVIS_BRANCH bash ./calculate.sh
         - VERSION=$(BRANCH=$TRAVIS_BRANCH bash ./calculate.sh)
         - echo "Version $VERSION"
       before_deploy:
