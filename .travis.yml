@@ -11,6 +11,7 @@ jobs:
         - VERSION=$(BRANCH=$TRAVIS_BRANCH bash ./calculate.sh)
         - echo "Version $VERSION"
         - echo "AAAAAAA" > a.txt
+        - ls
 
     - name: "Deploy on NPM"
       if: branch IN (develop, beta, stable, master)
@@ -19,3 +20,4 @@ jobs:
         - VERSION=$(BRANCH=$TRAVIS_BRANCH bash ./calculate.sh)
         - echo "Version $VERSION"
         - cat a.txt
+        - ls
