@@ -5,6 +5,7 @@ node_js: 10
 jobs:
   include:
     - stage: deploy
+      name: "Deploy on github"
       if: branch IN (develop, beta, stable, master)
       script:
         - BRANCH=$TRAVIS_BRANCH bash ./calculate.sh
@@ -20,20 +21,39 @@ jobs:
           git tag "$TRAVIS_TAG" &&
           git push https://$GITHUB_OAUTH_TOKEN@github.com/$TRAVIS_REPO_SLUG.git $TRAVIS_TAG
           ) || true
-        - npm version $VERSION --allow-same-version
       deploy:
+        - provider: releases
+          api_key: "$GITHUB_OAUTH_TOKEN"
+          skip_cleanup: true
+          prerelease: true
+          name: $VERSION @ $(date +'%d.%m.%Y %R')
+          on:
+            repo: $TRAVIS_REPO_SLUG
+            branch:
+              - develop
+              - beta
         - provider: releases
           api_key: "$GITHUB_OAUTH_TOKEN"
           skip_cleanup: true
           name: $VERSION @ $(date +'%d.%m.%Y %R')
           on:
             repo: $TRAVIS_REPO_SLUG
-            branch: master
-        - provider: releases
-          api_key: "$GITHUB_OAUTH_TOKEN"
+            branch: stable
+
+    - name: "Deploy on npm"
+      if: branch IN (develop, beta, stable, master)
+      script:
+        - BRANCH=$TRAVIS_BRANCH bash ./calculate.sh
+        - VERSION=$(BRANCH=$TRAVIS_BRANCH bash ./calculate.sh)
+        - echo "Version $VERSION"
+      before_deploy:
+        - npm version $VERSION --allow-same-version
+      deploy:
+        - provider: npm
+          email: $NPM_EMAIL
+          api_token: $NPM_TOKEN
           skip_cleanup: true
-          prerelease: true
-          name: $VERSION @ $(date +'%d.%m.%Y %R')
+          tag: $TRAVIS_BRANCH
           on:
             repo: $TRAVIS_REPO_SLUG
             branch:
@@ -45,7 +65,4 @@ jobs:
           skip_cleanup: true
           on:
             repo: $TRAVIS_REPO_SLUG
-            branch:
-              - master
-              - develop
-              - beta
+            branch: stable
