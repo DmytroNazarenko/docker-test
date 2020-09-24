@@ -14,7 +14,7 @@ if [ -z "$VERSION" ]; then
       exit 1
 fi
 
-if [[ $BRANCH == 'master' ]]; then
+if [[ $BRANCH == 'stable' ]]; then
     echo $VERSION
     exit 0
 fi
