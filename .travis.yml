@@ -42,7 +42,6 @@ jobs:
           email: $NPM_EMAIL
           api_token: $NPM_TOKEN
           skip_cleanup: true
-          tag: develop
           on:
             repo: $TRAVIS_REPO_SLUG
             branch:
