@@ -4,6 +4,32 @@ node_js: 10
 
 jobs:
   include:
+    - stage: deploy-2
+      if: branch IN (develop, beta, stable, master)
+      script:
+        - BRANCH=$TRAVIS_BRANCH bash ./calculate.sh
+        - VERSION=$(BRANCH=$TRAVIS_BRANCH bash ./calculate.sh)
+        - echo "Version $VERSION"
+      before_deploy:
+        - npm version $VERSION
+      deploy:
+        - provider: npm
+          email: $NPM_EMAIL
+          api_token: $NPM_TOKEN
+          skip_cleanup: true
+          tag: $TRAVIS_BRANCH
+          on:
+            repo: $TRAVIS_REPO_SLUG
+            branch:
+              - develop
+              - beta
+        - provider: npm
+          email: $NPM_EMAIL
+          api_token: $NPM_TOKEN
+          skip_cleanup: true
+          on:
+            repo: $TRAVIS_REPO_SLUG
+            branch: stable
     - stage: deploy
       name: "Deploy on github"
       if: branch IN (develop, beta, stable, master)
@@ -38,29 +64,4 @@ jobs:
           on:
             repo: $TRAVIS_REPO_SLUG
             branch: stable
-    - stage: deploy-2
-      if: branch IN (develop, beta, stable, master)
-      script:
-        - BRANCH=$TRAVIS_BRANCH bash ./calculate.sh
-        - VERSION=$(BRANCH=$TRAVIS_BRANCH bash ./calculate.sh)
-        - echo "Version $VERSION"
-      before_deploy:
-        - npm version $VERSION
-      deploy:
-        - provider: npm
-          email: $NPM_EMAIL
-          api_token: $NPM_TOKEN
-          skip_cleanup: true
-          tag: $TRAVIS_BRANCH
-          on:
-            repo: $TRAVIS_REPO_SLUG
-            branch:
-              - develop
-              - beta
-        - provider: npm
-          email: $NPM_EMAIL
-          api_token: $NPM_TOKEN
-          skip_cleanup: true
-          on:
-            repo: $TRAVIS_REPO_SLUG
-            branch: stable
+
