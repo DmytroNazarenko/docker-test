@@ -6,5 +6,9 @@
   },
   "dependencies": {
     "package-deploy-test": "0.0.2-develop.2"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.12",
+    "webpack": "4.43.0"
   }
 }
