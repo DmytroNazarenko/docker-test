@@ -34,8 +34,7 @@ jobs:
       - name: Publish on npm (stable)
         if: github.ref == 'refs/heads/stable'
         run: |
-          npm version --no-git-tag-version ${{ env.VERSION }}
-          npm publish --tag
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Create Release
