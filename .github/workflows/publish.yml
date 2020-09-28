@@ -24,12 +24,14 @@ jobs:
           echo "::set-env name=BRANCH::$BRANCH"
           echo "Version $VERSION"
           echo ${{ secrets.GITHUB_TOKEN }}
-      - name: Publish to npm
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
           npm version ${{ env.VERSION }}
-          npm publish --access=public --tag ${{ env.BRANCH }}
+      - name: Publish to npm
+        uses: pascalgn/npm-publish-action@v1
+        with: # All of theses inputs are optional
+          tag_name: ${{ env.BRANCH }}
+        env: # More info about the environment variables in the README
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this as is, it's automatically generated
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
