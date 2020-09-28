@@ -1,0 +1,43 @@
+name: Build and publish
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - stable
+      - develop
+      - beta
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged
+    env:
+      NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Build library
+        run: |
+          export BRANCH=${GITHUB_REF##*/}
+          echo "Branch $BRANCH"
+          export VERSION=$(bash ./scripts/calculate_version.sh)
+          echo "Version $VERSION"
+          bash ./scripts/build.sh
+      - name: Publish to pip
+        run: |
+          bash ./scripts/publish.sh
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.VERSION }}
+          release_name: ${{ env.VERSION }}
+          draft: false
+          prerelease: true
