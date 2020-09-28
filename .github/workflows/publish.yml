@@ -10,9 +10,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
-      NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v2
       - name: Set up Node 12
@@ -28,6 +25,8 @@ jobs:
           echo "Version $VERSION"
           echo ${{ secrets.GITHUB_TOKEN }}
       - name: Publish to npm
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm version ${{ env.VERSION }}
           npm publish --access=public --tag ${{ env.BRANCH }}
