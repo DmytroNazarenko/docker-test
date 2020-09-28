@@ -7,10 +7,5 @@ jobs:
       HOST: ${{ secrets.HOST }}
     steps:
     - uses: actions/checkout@v2
-    - name: Install dependencies
-      run: |
-        while ((Test-NetConnection -ComputerName $env:HOST -Port 4460).tcpTestSucceeded -ne $true) \
-         {echo "Setup connection..."; sleep 10}
-        echo $?
     
     
