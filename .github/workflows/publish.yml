@@ -1,7 +1,6 @@
 name: Build and publish
 on:
-  pull_request:
-    types: [closed]
+  push:
     branches:
       - stable
       - develop
@@ -16,7 +15,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-          registry-url: 'https://registry.npmjs.org'
       - name: Set version and branch
         run: |
           export BRANCH=${GITHUB_REF##*/}
