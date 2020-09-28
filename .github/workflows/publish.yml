@@ -13,7 +13,6 @@ jobs:
     env:
       NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
       NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v2
       - name: Set up Node 12
@@ -27,6 +26,7 @@ jobs:
           echo "::set-env name=VERSION::$VERSION"
           echo "::set-env name=BRANCH::$BRANCH"
           echo "Version $VERSION"
+          echo ${{ secrets.GITHUB_TOKEN }}
       - name: Publish to npm
         run: |
           npm version ${{ env.VERSION }}
