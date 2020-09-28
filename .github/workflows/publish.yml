@@ -22,13 +22,11 @@ jobs:
 
       - name: Build library
         run: |
-          export BRANCH=${GITHUB_REF##*/}
-          echo "Branch $BRANCH"
-          export VERSION=$(bash ./calculate.sh)
+          export VERSION=$(BRANCH=${GITHUB_REF##*/} bash ./calculate.sh)
           echo "Version $VERSION"
       - name: Publish to npm
         run: |
-          echo "Version $VERSION"
+          export VERSION=$(BRANCH=${GITHUB_REF##*/} bash ./calculate.sh)
           npm version $VERSION
           npm publish --access=public
       - name: Create Release
