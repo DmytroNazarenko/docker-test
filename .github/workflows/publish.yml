@@ -12,23 +12,24 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v2
       - name: Set up Node 12
         uses: actions/setup-node@v1
         with:
           node-version: 12
-
-      - name: Build library
+      - name: Set version and branch
         run: |
-          export VERSION=$(BRANCH=${GITHUB_REF##*/} bash ./calculate.sh)
+          export BRANCH=${GITHUB_REF##*/}
+          export VERSION=$( bash ./calculate.sh)
+          echo "::set-env name=VERSION::$VERSION"
+          echo "::set-env name=BRANCH::$BRANCH"
           echo "Version $VERSION"
       - name: Publish to npm
         run: |
-          export VERSION=$(BRANCH=${GITHUB_REF##*/} bash ./calculate.sh)
-          npm version $VERSION
-          npm publish --access=public
+          npm version ${{ env.VERSION }}
+          npm publish --access=public --tag ${{ env.BRANCH }}
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
