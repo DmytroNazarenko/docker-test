@@ -25,7 +25,7 @@ jobs:
           echo "Version $VERSION"
           echo ${{ secrets.GITHUB_TOKEN }}
       - run: |
-          npm version ${{ env.VERSION }}
+          npm version --no-git-tag-version ${{ env.VERSION }}
           npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
