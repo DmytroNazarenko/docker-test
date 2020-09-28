@@ -28,7 +28,8 @@ jobs:
           echo "Version $VERSION"
       - name: Publish to npm
         run: |
-          npm version ${{ env.VERSION }}
+          echo "Version $VERSION"
+          npm version $VERSION
           npm publish --access=public
       - name: Create Release
         id: create_release
