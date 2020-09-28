@@ -25,21 +25,21 @@ jobs:
           echo "Version $VERSION"
           echo ${{ secrets.GITHUB_TOKEN }}
       - name: Publish on npm
-        if: ${{ env.BRANCH }} != 'stable'
+        if: github.ref != 'refs/heads/stable'
         run: |
           npm version --no-git-tag-version ${{ env.VERSION }}
           npm publish --tag ${{ env.BRANCH }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish on npm (stable)
-        if: ${{ env.BRANCH }} == 'stable'
+        if: github.ref == 'refs/heads/stable'
         run: |
           npm version --no-git-tag-version ${{ env.VERSION }}
           npm publish --tag
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Create Release
-        if: ${{ env.BRANCH }} != 'stable'
+        if: github.ref != 'refs/heads/stable'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -49,7 +49,7 @@ jobs:
           draft: false
           prerelease: true
       - name: Create Release (stable)
-        if: ${{ env.BRANCH }} == 'stable'
+        if: github.ref == 'refs/heads/stable'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
