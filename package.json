@@ -1,6 +1,6 @@
 {
   "name": "package-test-test",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "version": "node -e \"console.log(require('./package.json').version);\""
   },
