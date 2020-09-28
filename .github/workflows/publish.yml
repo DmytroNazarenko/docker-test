@@ -1,7 +1,6 @@
 name: Build and publish
 on:
-  pull_request:
-    types: [closed]
+  push:
     branches:
       - stable
       - develop
@@ -26,12 +25,11 @@ jobs:
         run: |
           export BRANCH=${GITHUB_REF##*/}
           echo "Branch $BRANCH"
-          export VERSION=$(bash ./scripts/calculate_version.sh)
+          export VERSION=$(bash ./calculate.sh)
           echo "Version $VERSION"
-          bash ./scripts/build.sh
-      - name: Publish to pip
+      - name: Publish to npm
         run: |
-          bash ./scripts/publish.sh
+          npm publish --access=public
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
