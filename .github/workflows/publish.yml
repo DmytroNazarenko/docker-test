@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Node 12
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org'
       - name: Set version and branch
         run: |
           export BRANCH=${GITHUB_REF##*/}
@@ -25,13 +25,9 @@ jobs:
           echo "Version $VERSION"
           echo ${{ secrets.GITHUB_TOKEN }}
           npm version ${{ env.VERSION }}
-      - name: Publish to npm
-        uses: pascalgn/npm-publish-action@master
-        with: # All of theses inputs are optional
-          tag_name: ${{ env.BRANCH }}
-        env: # More info about the environment variables in the README
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this as is, it's automatically generated
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
