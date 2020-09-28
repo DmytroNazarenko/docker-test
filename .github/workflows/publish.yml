@@ -26,7 +26,7 @@ jobs:
           echo ${{ secrets.GITHUB_TOKEN }}
           npm version ${{ env.VERSION }}
       - name: Publish to npm
-        uses: pascalgn/npm-publish-action@v1
+        uses: pascalgn/npm-publish-action@master
         with: # All of theses inputs are optional
           tag_name: ${{ env.BRANCH }}
         env: # More info about the environment variables in the README
