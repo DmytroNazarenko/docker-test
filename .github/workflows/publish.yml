@@ -10,7 +10,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged
     env:
       NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
