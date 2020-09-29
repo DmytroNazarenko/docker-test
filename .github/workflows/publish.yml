@@ -32,7 +32,7 @@ jobs:
         if: github.ref != 'refs/heads/stable'
         run: |
           npm version --no-git-tag-version ${{ env.VERSION }}
-          npm publish --tag ${{ env.BRANCH }}
+          npm publish  --access public --tag ${{ env.BRANCH }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish on npm (stable)
