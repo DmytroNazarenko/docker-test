@@ -30,15 +30,14 @@ jobs:
           WEBPACK_ENV=build npx webpack
       - name: Publish on npm
         if: github.ref != 'refs/heads/stable'
+        uses: pascalgn/npm-publish-action@master
+        with:
+          tag_name: ${{ env.BRANCH }}
         run: |
           npm version --no-git-tag-version ${{ env.VERSION }}
-          npm publish  --access public --tag ${{ env.BRANCH }}
       - name: Publish on npm (stable)
         if: github.ref == 'refs/heads/stable'
-        run: |
-          npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        uses: pascalgn/npm-publish-action@master
       - name: Create Release
         if: github.ref != 'refs/heads/stable'
         uses: actions/create-release@v1
