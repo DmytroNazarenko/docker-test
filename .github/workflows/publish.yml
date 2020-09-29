@@ -10,12 +10,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-          registry-url: 'https://registry.npmjs.org'
       - run: npm i
       - name: Set version and branch
         run: |
@@ -32,8 +33,6 @@ jobs:
         run: |
           npm version --no-git-tag-version ${{ env.VERSION }}
           npm publish  --access public --tag ${{ env.BRANCH }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish on npm (stable)
         if: github.ref == 'refs/heads/stable'
         run: |
