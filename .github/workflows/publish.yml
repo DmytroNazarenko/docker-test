@@ -35,8 +35,6 @@ jobs:
       - name: Publish on npm
         if: github.ref != 'refs/heads/stable'
         uses: pascalgn/npm-publish-action@master
-        with:
-          tag_name: ${{ env.BRANCH }}
       - name: Publish on npm (stable)
         if: github.ref == 'refs/heads/stable'
         uses: pascalgn/npm-publish-action@master
