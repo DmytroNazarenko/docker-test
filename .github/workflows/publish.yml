@@ -34,10 +34,14 @@ jobs:
           npm version --no-git-tag-version ${{ env.VERSION }}
       - name: Publish on npm
         if: github.ref != 'refs/heads/stable'
-        uses: pascalgn/npm-publish-action@master
+        uses: pascalgn/npm-publish-action@06e0830ea83eea10ed4a62654eeaedafb8bf50fc
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish on npm (stable)
         if: github.ref == 'refs/heads/stable'
-        uses: pascalgn/npm-publish-action@master
+        uses: pascalgn/npm-publish-action@06e0830ea83eea10ed4a62654eeaedafb8bf50fc
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Release
         if: github.ref != 'refs/heads/stable'
         uses: actions/create-release@v1
