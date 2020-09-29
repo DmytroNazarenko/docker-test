@@ -28,13 +28,15 @@ jobs:
       - name: Webpack build
         run: |
           WEBPACK_ENV=build npx webpack
+      - name: Update package version
+        if: github.ref != 'refs/heads/stable'
+        run: |
+          npm version --no-git-tag-version ${{ env.VERSION }}
       - name: Publish on npm
         if: github.ref != 'refs/heads/stable'
         uses: pascalgn/npm-publish-action@master
         with:
           tag_name: ${{ env.BRANCH }}
-        run: |
-          npm version --no-git-tag-version ${{ env.VERSION }}
       - name: Publish on npm (stable)
         if: github.ref == 'refs/heads/stable'
         uses: pascalgn/npm-publish-action@master
