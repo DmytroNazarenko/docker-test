@@ -1,6 +1,6 @@
 {
-  "name": "package-test-test",
-  "version": "0.0.4",
+  "name": "@rikontest/package-test",
+  "version": "0.1.0",
   "scripts": {
     "version": "node -e \"console.log(require('./package.json').version);\""
   },
