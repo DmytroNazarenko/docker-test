@@ -1,7 +1,7 @@
 name: Test
 on:
   pull_request:
-    types: [closed]
+      types: [closed]
 
 jobs:
   test:
@@ -10,12 +10,17 @@ jobs:
       HOST: ${{ secrets.HOST }}
     steps:
     - uses: actions/checkout@v2
+    - name: Set version and branch
+      run: |
+        export BRANCH=${GITHUB_REF##*/}
+        ( test $BRANCH = "stable" && export STABLE=true ) || export STABLE=false
+        echo "STABLE=$STABLE" >> $GITHUB_ENV
     - name: Publish on npm
-      if: github.ref != 'refs/heads/stable'
+      if: not ${{ env.STABLE }}
       run: |
         echo AAA
     - name: Publish on npm (stable)
-      if: github.ref == 'refs/heads/stable'
+      if: ${{ env.STABLE }}
       run: |
         echo BBB
     
