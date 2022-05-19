@@ -18,12 +18,12 @@ jobs:
         echo "STABLE=$STABLE" >> $GITHUB_ENV
         echo $STABLE
     - name: Publish on npm (stable)
-      if: ${{ env.STABLE }}
+      if: ${{ env.STABLE }} == true
       run: |
         echo BBB
   
     - name: Publish on npm
-      if: not ${{ env.STABLE }}
+      if: ${{ env.STABLE }} == false
       run: |
         echo AAA
     
