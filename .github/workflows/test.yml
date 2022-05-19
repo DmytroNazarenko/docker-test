@@ -13,6 +13,7 @@ jobs:
     - name: Set version and branch
       run: |
         export BRANCH=${GITHUB_REF##*/}
+        echo $BRANCH
         ( test $BRANCH = "stable" && export STABLE=true ) || export STABLE=false
         echo "STABLE=$STABLE" >> $GITHUB_ENV
     - name: Publish on npm
