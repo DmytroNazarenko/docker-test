@@ -1,11 +1,21 @@
 name: Test
-on: [push, pull_request]
+on:
+  pull_request:
+    types: [closed]
+
 jobs:
   test:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     env:
       HOST: ${{ secrets.HOST }}
     steps:
     - uses: actions/checkout@v2
-    
+    - name: Publish on npm
+      if: github.ref != 'refs/heads/stable'
+      run: |
+        echo AAA
+    - name: Publish on npm (stable)
+      if: github.ref == 'refs/heads/stable'
+      run: |
+        echo BBB
     
