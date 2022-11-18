@@ -1,4 +1,4 @@
-name: Check if a PR has a valid Issue
+name: Check link between PR and Issue
 
 on:
   pull_request:
@@ -10,23 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      
-      - name: Issue Validator
-        uses: HarshCasper/validate-issues-over-pull-requests@v0.1.1
-        id: validator
-        with:
-          prbody: ${{ github.event.pull_request.body }}
-          prurl: ${{ github.event.pull_request.url }}
-          
-      - name: PR has no valid Issue
-        id: check-internal
-        if: ${{ steps.validator.outputs.valid == 0 }}
-        uses: begedin/variable-regex-extractor-action@v0.2.1
-        with:
-          pattern: |
-            `myVar:([^\s]*)`
-            
       - name: ADO WorkItem in description
         uses: FidelusAleksander/gh-action-regex@v0.2.0
         continue-on-error: true
@@ -36,6 +19,6 @@ jobs:
           regex_match_type: search
           text: ${{ github.event.pull_request.body }}
           
-      - if: steps.ado.outputs.match == 'true'
+      - if: steps.ado.outputs.match == 'false'
         run:
-          echo "AAAA"
+          exit 1
