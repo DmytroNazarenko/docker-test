@@ -25,9 +25,11 @@ jobs:
         uses: begedin/variable-regex-extractor-action@v0.2.1
         with:
           pattern: |
-            `internal-support#(\d+)`
+            `myVar:([^\s]*)`
             
       - name: On matched
-        if: ${{ steps.check-internal.outputs.valid == '' }}
-        run: exit 1
+        env:
+          AAA: ${{ steps.check-internal.outputs }}
+        run: 
+          echo $AAA
 
