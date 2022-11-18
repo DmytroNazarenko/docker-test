@@ -22,7 +22,7 @@ jobs:
       - name: PR has no valid Issue
         id: check-internal
         if: ${{ steps.validator.outputs.valid == 0 }}
-        uses: actions/variable-regex-extractor-action@v1.1
+        uses: actions/variable-regex-extractor-action@v0.2.1
         with:
           pattern: |
             `internal-support#(\d+)`
