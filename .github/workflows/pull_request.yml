@@ -6,7 +6,6 @@ on:
 
 jobs:
   checker:
-    name: PR checker
     runs-on: ubuntu-latest
 
     steps:
