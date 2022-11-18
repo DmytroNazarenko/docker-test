@@ -6,6 +6,7 @@ on:
 
 jobs:
   checker:
+    name: Check link between PR and Issue
     runs-on: ubuntu-latest
 
     steps:
