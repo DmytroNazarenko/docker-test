@@ -20,10 +20,14 @@ jobs:
           prurl: ${{ github.event.pull_request.url }}
           
       - name: PR has no valid Issue
+        id: check-internal
         if: ${{ steps.validator.outputs.valid == 0 }}
-        uses: pablo-statsig/gh-pr-content-checker@master
-        env:
-          bodyContains: 'Add this'
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PRNUM: ${{ github.event.pull_request.number }}
+        uses: actions/variable-regex-extractor-action@v1.1
+        with:
+          pattern: |
+            `internal-support#(\d+)`
+            
+      - name: On matched
+        if: ${{ steps.validator.outputs.valid == "" }}
+        run: exit 1
 
