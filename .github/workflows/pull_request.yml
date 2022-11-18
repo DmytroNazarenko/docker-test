@@ -1,0 +1,19 @@
+name: Example workflow
+on: [pull_request]
+jobs:
+  example:
+    name: Example job
+    runs-on: ubuntu-latest
+    steps:
+    - name: Run actions/checkout 
+      uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Run fabiankoestring/body-regex-validator-action
+      uses: fabiankoestring/body-regex-validator-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PULL_REQUEST_PATTERN: '^(.*Description.*Changes.*Tests.*)$'
+        PULL_REQUEST_COMMENT: 'This is my pr comment template.'
+        ISSUE_PATTERN: '^(.*Description.*Behavior.*)$'
+        ISSUE_COMMENT: 'This is my issue comment template.'
