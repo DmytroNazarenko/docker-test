@@ -19,12 +19,14 @@ jobs:
           prbody: ${{ github.event.pull_request.body }}
           prurl: ${{ github.event.pull_request.url }}
           
-      - name: Check for internal-support
-        if: ${{ steps.validator.outputs.valid == 0 }}
+      - name: PR has no valid Issue
         uses: fabiankoestring/body-regex-validator-action@master
+        if: ${{ steps.validator.outputs.valid == 0 }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PRNUM: ${{ github.event.pull_request.number }}
-          PULL_REQUEST_PATTERN: '\binternal-support\b[#]\d+'
-          PULL_REQUEST_COMMENT: 'PR does not contain internal-support'
+          PULL_REQUEST_PATTERN: '^(.*Description.*Changes.*Tests.*)$'
+          PULL_REQUEST_COMMENT: 'This is my pr comment template.'
+          ISSUE_PATTERN: '^(.*Description.*Behavior.*)$'
+          ISSUE_COMMENT: 'This is my issue comment template.'
 
