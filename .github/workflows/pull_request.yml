@@ -28,6 +28,6 @@ jobs:
             `internal-support#(\d+)`
             
       - name: On matched
-        if: ${{ steps.validator.outputs.valid == '' }}
+        if: ${{ steps.check-internal.outputs.valid == '' }}
         run: exit 1
 
