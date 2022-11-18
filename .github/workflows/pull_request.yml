@@ -23,7 +23,7 @@ jobs:
         if: ${{ steps.validator.outputs.valid == 0 }}
         uses: pablo-statsig/gh-pr-content-checker@master
         env:
-          github-token: ${{github.token}}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           bodyContains: 'Add this'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PRNUM: ${{ github.event.pull_request.number }}
