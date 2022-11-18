@@ -28,8 +28,7 @@ jobs:
             `myVar:([^\s]*)`
             
       - name: On matched
-        env:
-          AAA: ${{ steps.check-internal.outputs.value }}
+        if: ${{ steps.check-internal.outputs.valid == '' }}
         run: 
-          echo $AAA
+          exit 1
 
