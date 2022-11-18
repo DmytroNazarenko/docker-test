@@ -17,8 +17,3 @@ jobs:
           regex_pattern: "((?i)close[sd]?|resolve[sd]?|fixe[sd]|fix)+[ ][\\w\\/.-]*#[\\d]+"
           regex_match_type: search
           text: ${{ github.event.pull_request.body }}
-          
-      - name: Issue check failed
-        if: steps.regex.outputs.match == 'false'
-        run:
-          exit 1
