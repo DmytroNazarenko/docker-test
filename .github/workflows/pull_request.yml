@@ -27,16 +27,15 @@ jobs:
           pattern: |
             `myVar:([^\s]*)`
             
-      - name: Extract variable
-        id: extract
-        uses: begedin/variable-regex-extractor-action@v0.2.1
+      - name: ADO WorkItem in description
+        uses: FidelusAleksander/gh-action-regex@v0.2.0
+        continue-on-error: true
+        id: ado
         with:
-          pattern: |
-            `myVar:([^\s]*)`
-      - name: On matched
-        if: steps.extract.outputs.value == 'matched'
-        run: exit 0
-      - name: On unmatched
-        if: steps.extract.outputs.value != 'matched'
-        run: exit 1
-
+          regex_pattern: "https://example.visualstudio.com/_apis/wit/workItems/[0-9]+"
+          regex_match_type: search
+          text: ${{ github.event.pull_request.body }}
+          
+      - if: steps.ado.outputs.match == 'false'
+        run:
+          echo "AAAA"
