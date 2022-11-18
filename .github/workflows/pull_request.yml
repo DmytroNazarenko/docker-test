@@ -27,8 +27,16 @@ jobs:
           pattern: |
             `myVar:([^\s]*)`
             
+      - name: Extract variable
+        id: extract
+        uses: begedin/variable-regex-extractor-action@v0.2.1
+        with:
+          pattern: |
+            `myVar:([^\s]*)`
       - name: On matched
-        if: ${{ steps.check-internal.outputs.valid == '' }}
-        run: 
-          exit 1
+        if: steps.extract.outputs.value == 'matched'
+        run: exit 0
+      - name: On unmatched
+        if: steps.extract.outputs.value != 'matched'
+        run: exit 1
 
