@@ -1,16 +1,19 @@
-name: Example workflow
-on: [pull_request]
+name: Check if a PR has a valid Issue
+
+on:
+  pull_request_target:
+    types: [ edited, synchronize, opened, reopened ]
+
 jobs:
-  example:
-    name: Example job
+  checker:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Run actions/checkout 
-      uses: actions/checkout@v1
-      with:
-        fetch-depth: 1
-    - name: Run fabiankoestring/body-regex-validator-action
-      uses: fabiankoestring/body-regex-validator-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PULL_REQUEST_PATTERN: '(?i)(\bclose\b)|(\bcloses\b)|(\bclosed\b)|(\bfix\b)|(\bfixes\b)|(\bfixed\b)|(\bresolve\b)|(\bresolves\b)|(\bresolved\b)'
+      - uses: actions/checkout@v2
+      
+      - name: Issue Validator
+        uses: HarshCasper/validate-issues-over-pull-requests@v0.1.1
+        id: validator
+        with:
+          prbody: ${{ github.event.pull_request.body }}
+          prurl: ${{ github.event.pull_request.url }}
