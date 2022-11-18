@@ -32,7 +32,7 @@ jobs:
         continue-on-error: true
         id: ado
         with:
-          regex_pattern: "((?i)close[sd]?|resolve[sd]?|fixe[sd]|fix)+[ ][\w\/.-]*#[\d]+"
+          regex_pattern: "((?i)close[sd]?|resolve[sd]?|fixe[sd]|fix)+[ ][\\w\\/.-]*#[\\d]+"
           regex_match_type: search
           text: ${{ github.event.pull_request.body }}
           
