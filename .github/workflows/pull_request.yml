@@ -32,7 +32,7 @@ jobs:
         continue-on-error: true
         id: ado
         with:
-          regex_pattern: "change"
+          regex_pattern: "Closes"
           regex_match_type: search
           text: ${{ github.event.pull_request.body }}
           
