@@ -32,10 +32,10 @@ jobs:
         continue-on-error: true
         id: ado
         with:
-          regex_pattern: "https://example.visualstudio.com/_apis/wit/workItems/[0-9]+"
+          regex_pattern: "(?i)(\bclose\b)|(\bcloses\b)|(\bclosed\b)|(\bfix\b)|(\bfixes\b)|(\bfixed\b)|(\bresolve\b)|(\bresolves\b)|(\bresolved\b)"
           regex_match_type: search
           text: ${{ github.event.pull_request.body }}
           
-      - if: steps.ado.outputs.match == 'false'
+      - if: steps.ado.outputs.match == 'true'
         run:
           echo "AAAA"
