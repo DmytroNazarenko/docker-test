@@ -1,12 +1,11 @@
-name: Check link between PR and Issue
-
+name: Pull request validation
 on:
   pull_request:
     types: [ edited, synchronize, opened, reopened ]
 
 jobs:
   checker:
-    name: Check link between PR and Issue
+    name: Check link to the issue
     runs-on: ubuntu-latest
 
     steps:
