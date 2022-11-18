@@ -1,7 +1,8 @@
 name: Check if a PR has a valid Issue
 
 on:
-  [pull_request]
+  pull_request_target:
+    types: [ edited, synchronize, opened, reopened ]
 
 jobs:
   checker:
