@@ -29,7 +29,7 @@ jobs:
             
       - name: On matched
         env:
-          AAA: ${{ steps.check-internal.outputs }}
+          AAA: ${{ steps.check-internal.outputs.value }}
         run: 
           echo $AAA
 
