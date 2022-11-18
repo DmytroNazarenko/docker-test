@@ -13,7 +13,4 @@ jobs:
       uses: fabiankoestring/body-regex-validator-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PULL_REQUEST_PATTERN: '^(.*Description.*Changes.*Tests.*)$'
-        PULL_REQUEST_COMMENT: 'This is my pr comment template.'
-        ISSUE_PATTERN: '^(.*Description.*Behavior.*)$'
-        ISSUE_COMMENT: 'This is my issue comment template.'
+        PULL_REQUEST_PATTERN: '(?i)(\bclose\b)|(\bcloses\b)|(\bclosed\b)|(\bfix\b)|(\bfixes\b)|(\bfixed\b)|(\bresolve\b)|(\bresolves\b)|(\bresolved\b)'
