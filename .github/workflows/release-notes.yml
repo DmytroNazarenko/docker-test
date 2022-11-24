@@ -11,8 +11,7 @@ jobs:
     - name: Set version and branch
       run: |
         echo AAAA;
-    - name: update-pull-request
-      uses: kt3k/update-pr-description@v1.0.1
+    - uses: AsasInnab/pr-body-action@v1
       with:
-        pr_body: "**some description**"
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        body: "This is my new PR body :)"
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
