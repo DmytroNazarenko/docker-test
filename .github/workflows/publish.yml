@@ -32,6 +32,7 @@ jobs:
           prerelease: true
           body: "
             ## General info
+            
             * **Name:** ${{ github.event.pull_request.title }}
             
             * **Version:** ${{ env.VERSION }}
