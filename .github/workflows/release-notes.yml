@@ -17,3 +17,4 @@ jobs:
       with:
         body: "${{ steps.template.outputs.content }}"
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
