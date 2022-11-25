@@ -1,0 +1,12 @@
+name: Build and publish skaled container
+on:
+  pull_request:
+    types: [closed]
+      
+jobs:
+  build:
+    if: github.event.pull_request.merged == true
+    if: contains(github.event.pull_request.labels.*.name, 'release-version')  
+    steps:
+      - name: update apt
+        run: echo "AAA"
