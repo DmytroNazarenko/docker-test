@@ -31,10 +31,12 @@ jobs:
           draft: false
           prerelease: true
           body: "
-            # Release ${{ github.event.pull_request.title }}
-
-            Version: ${{ env.VERSION }}
-            Date: ----
+            # Release: ${{ github.event.pull_request.title }}
+            
+            ## General info
+            
+            * Version: ${{ env.VERSION }}
+            * Date: ----
 
             ${{ github.event.pull_request.body }}
           "
