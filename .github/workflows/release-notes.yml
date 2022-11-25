@@ -8,10 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set version and branch
-      run: |
-        echo AAAA;
+    - name: Read template
+      id: template
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: .github/RELEASE_TEMPLATE.md
     - uses: AsasInnab/pr-body-action@v1
       with:
-        body: "This is my new PR body :)"
+        body: "${{ steps.template.outputs.content }}"
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
