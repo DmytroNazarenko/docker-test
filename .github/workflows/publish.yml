@@ -16,7 +16,18 @@ jobs:
       - name: write name
         if: contains(github.event.pull_request.labels.*.name, 'release-version')  
         run: 
-          echo "${{ github.event.pull_request.title }}"
+          export RELEASE_BODY="
+            ## General info
+
+            * **Name:** ${{ github.event.pull_request.title }}
+
+            * **Version:** ${{ env.VERSION }}
+
+            * **Date:** $(date +'%d.%m.%Y')
+
+            ${{ github.event.pull_request.body }}
+          "
+          echo "RELEASE_BODY=$RELEASE_BODY" >> $GITHUB_ENV
 
 
       - name: Create Release
@@ -25,6 +36,7 @@ jobs:
         env:
           VERSION: ${{ github.event.pull_request.title }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+          RELEASE_BODY: ${{ env.RELEASE_BODY }}
         with:
           tag_name: ${{ env.VERSION }}
           release_name: ${{ env.VERSION }}
