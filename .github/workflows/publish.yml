@@ -1,12 +1,11 @@
 name: Build and publish skaled container
 on:
   pull_request:
-    types: [closed]
+    types: [opened, closed]
       
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
     steps:
       - name: write body
         if: contains(github.event.pull_request.labels.*.name, 'release-version')  
@@ -18,17 +17,7 @@ jobs:
         env:
           VERSION: ${{ github.event.pull_request.title }}
         run: |
-          export RELEASE_BODY="
-            ## General info
-
-            * **Name:** ${{ github.event.pull_request.title }}
-
-            * **Version:** ${{ env.VERSION }}
-
-            * **Date:** $(date +'%d.%m.%Y')
-
-            ${{ github.event.pull_request.body }}
-          "
+          export RELEASE_BODY="AAAA"
           echo "RELEASE_BODY=$RELEASE_BODY" >> $GITHUB_ENV
 
 
