@@ -15,7 +15,7 @@ jobs:
           
       - name: write name
         if: contains(github.event.pull_request.labels.*.name, 'release-version')  
-        run: 
+        run: |
           export RELEASE_BODY="
             ## General info
 
@@ -42,16 +42,6 @@ jobs:
           release_name: ${{ env.VERSION }}
           draft: false
           prerelease: true
-          body: "
-            ## General info
-            
-            * **Name:** ${{ github.event.pull_request.title }}
-            
-            * **Version:** ${{ env.VERSION }}
-            
-            * **Date:** ----
-
-            ${{ github.event.pull_request.body }}
-          "
+          body: ${{ env.RELEASE_BODY }}
           
 
