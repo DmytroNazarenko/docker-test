@@ -22,6 +22,7 @@ jobs:
                                                                
             ${{ github.event.pull_request.body }}              
           "
+          &&
           echo "RELEASE_BODY=$RELEASE_BODY" >> $GITHUB_ENV
         shell: bash
 
