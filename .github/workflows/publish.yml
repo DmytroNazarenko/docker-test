@@ -1,12 +1,10 @@
 name: Build and publish skaled container
 on:
-  pull_request:
-    types: [closed]
+  push
       
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
     steps:
       - name: write body
         if: contains(github.event.pull_request.labels.*.name, 'release-version')  
@@ -14,36 +12,29 @@ jobs:
           echo "${{ github.event.pull_request.body }}"
           
       - name: write name
-        if: contains(github.event.pull_request.labels.*.name, 'release-version')  
         env:
           VERSION: ${{ github.event.pull_request.title }}
         run: |
-          export RELEASE_BODY="
-            ## General info
-
-            * **Name:** ${{ github.event.pull_request.title }}
-
-            * **Version:** ${{ env.VERSION }}
-
-            * **Date:** $(date +'%d.%m.%Y')
-
-            ${{ github.event.pull_request.body }}
+          export RELEASE_BODY=" \
+              AAAAAAA \
+              AAAA \
+              ${{ env.VERSION }} \
           "
           echo "RELEASE_BODY=$RELEASE_BODY" >> $GITHUB_ENV
 
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@latest
-        env:
-          VERSION: ${{ github.event.pull_request.title }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-          RELEASE_BODY: ${{ env.RELEASE_BODY }}
-        with:
-          tag_name: ${{ env.VERSION }}
-          release_name: ${{ env.VERSION }}
-          draft: false
-          prerelease: true
-          body: ${{ env.RELEASE_BODY }}
+#       - name: Create Release
+#         id: create_release
+#         uses: actions/create-release@latest
+#         env:
+#           VERSION: ${{ github.event.pull_request.title }}
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+#           RELEASE_BODY: ${{ env.RELEASE_BODY }}
+#         with:
+#           tag_name: ${{ env.VERSION }}
+#           release_name: ${{ env.VERSION }}
+#           draft: false
+#           prerelease: true
+#           body: ${{ env.RELEASE_BODY }}
           
 
