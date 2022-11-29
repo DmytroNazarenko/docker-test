@@ -8,7 +8,6 @@ jobs:
     steps:
           
       - name: write name
-        if: contains(github.event.pull_request.labels.*.name, 'release-version')  
         env:
           VERSION: ${{ github.event.pull_request.title }}
         run: >
