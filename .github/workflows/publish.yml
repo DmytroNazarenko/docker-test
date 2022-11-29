@@ -12,7 +12,6 @@ jobs:
           echo "${{ github.event.pull_request.body }}"
           
       - name: write name
-        if: contains(github.event.pull_request.labels.*.name, 'release-version')  
         env:
           VERSION: ${{ github.event.pull_request.title }}
         run: |
