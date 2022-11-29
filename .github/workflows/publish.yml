@@ -25,6 +25,8 @@ jobs:
                                                                
             $BODY          
           "
+          &&
+          echo "RELEASE_BODY=$RELEASE_BODY" >> $GITHUB_ENV
 
 
       - name: Create Release
