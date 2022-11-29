@@ -11,7 +11,7 @@ jobs:
         env:
           VERSION: ${{ github.event.pull_request.title }}
         run: >
-          export RELEASE_BODY="                                
+          echo "                                
             ## General info                                    
                                                                
             * **Name:** ${{ github.event.pull_request.title }} 
@@ -22,9 +22,6 @@ jobs:
                                                                
             ${{ github.event.pull_request.body }}              
           "
-          &&
-          echo "RELEASE_BODY=$RELEASE_BODY" >> $GITHUB_ENV
-        shell: bash
 
 
       - name: Create Release
