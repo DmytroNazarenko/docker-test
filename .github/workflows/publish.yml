@@ -5,12 +5,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
     steps:
-      - name: write body
-        if: contains(github.event.pull_request.labels.*.name, 'release-version')  
-        run: 
-          echo "${{ github.event.pull_request.body }}"
           
       - name: write name
         if: contains(github.event.pull_request.labels.*.name, 'release-version')  
