@@ -15,10 +15,10 @@ jobs:
         env:
           VERSION: ${{ github.event.pull_request.title }}
         run: |
-          export RELEASE_BODY="
-              AAAAAAA
-              AAAA
-              ${{ env.VERSION }}
+          export RELEASE_BODY=" \
+              AAAAAAA \
+              AAAA \
+              ${{ env.VERSION }} \
           "
           echo "RELEASE_BODY=$RELEASE_BODY" >> $GITHUB_ENV
 
