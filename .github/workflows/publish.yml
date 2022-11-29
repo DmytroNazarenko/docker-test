@@ -18,16 +18,16 @@ jobs:
         env:
           VERSION: ${{ github.event.pull_request.title }}
         run: |
-          export RELEASE_BODY="
-            ## General info
-
-            * **Name:** ${{ github.event.pull_request.title }}
-
-            * **Version:** ${{ env.VERSION }}
-
-            * **Date:** $(date +'%d.%m.%Y')
-
-            ${{ github.event.pull_request.body }}
+          export RELEASE_BODY="                                \
+            ## General info                                    \
+                                                               \
+            * **Name:** ${{ github.event.pull_request.title }} \
+                                                               \
+            * **Version:** ${{ env.VERSION }}                  \
+                                                               \
+            * **Date:** $(date +'%d.%m.%Y')                    \
+                                                               \
+            ${{ github.event.pull_request.body }}              \
           "
           echo "RELEASE_BODY=$RELEASE_BODY" >> $GITHUB_ENV
 
