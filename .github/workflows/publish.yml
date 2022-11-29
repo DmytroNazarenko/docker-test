@@ -1,7 +1,6 @@
 name: Build and publish skaled container
 on:
-  pull_request:
-    types: [closed]
+  push
       
 jobs:
   build:
@@ -17,7 +16,7 @@ jobs:
         if: contains(github.event.pull_request.labels.*.name, 'release-version')  
         env:
           VERSION: ${{ github.event.pull_request.title }}
-        run: |
+        run: >
           export RELEASE_BODY="                                
             ## General info                                    
                                                                
@@ -33,17 +32,17 @@ jobs:
         shell: bash
 
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@latest
-        env:
-          VERSION: ${{ github.event.pull_request.title }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-          RELEASE_BODY: ${{ env.RELEASE_BODY }}
-        with:
-          tag_name: ${{ env.VERSION }}
-          release_name: ${{ env.VERSION }}
-          draft: false
-          prerelease: true
-          body: ${{ env.RELEASE_BODY }}
+#       - name: Create Release
+#         id: create_release
+#         uses: actions/create-release@latest
+#         env:
+#           VERSION: ${{ github.event.pull_request.title }}
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+#           RELEASE_BODY: ${{ env.RELEASE_BODY }}
+#         with:
+#           tag_name: ${{ env.VERSION }}
+#           release_name: ${{ env.VERSION }}
+#           draft: false
+#           prerelease: true
+#           body: ${{ env.RELEASE_BODY }}
           
