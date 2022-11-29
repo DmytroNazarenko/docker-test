@@ -9,9 +9,9 @@ jobs:
           
       - name: write name
         env:
-          NAME: ${{ github.event.pull_request.title }}
-          VERSION: ${{ github.event.pull_request.title }}
-          BODY: ${{ github.event.pull_request.body }} 
+          NAME: aaa
+          VERSION: bbb
+          BODY: ccc
         run: >
           echo "                                
             ## General info                                    
