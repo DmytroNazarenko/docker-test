@@ -1,7 +1,6 @@
 name: Build and publish skaled container
 on:
-  pull_request:
-    types: [opened, closed]
+  push
       
 jobs:
   build:
