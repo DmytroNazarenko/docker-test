@@ -1,7 +1,8 @@
 name: Build and publish skaled container
 on:
-  pull_request:
-    types: [opened, edited, labeled]
+    push
+#   pull_request:
+#     types: [opened, edited, labeled]
       
 jobs:
   build:
@@ -13,37 +14,37 @@ jobs:
           NAME: foo
           VERSION: 1.0.0
         with:
-          filename: .github/RELEASE_NOTE_TEMPLATE.md
+          filename: ./.github/RELEASE_NOTE_TEMPLATE.md
           
-      - name: write name
-        env:
-          NAME: ${{ github.event.pull_request.title }}
-          VERSION: ${{ github.event.pull_request.title }}
-          BODY: ${{ github.event.pull_request.body }} 
-        run: >
-          export RELEASE_BODY="                                
-            ## General info                                    
+#       - name: write name
+#         env:
+#           NAME: ${{ github.event.pull_request.title }}
+#           VERSION: ${{ github.event.pull_request.title }}
+#           BODY: ${{ github.event.pull_request.body }} 
+#         run: >
+#           export RELEASE_BODY="                                
+#             ## General info                                    
                                                                
-            * **Name:** $NAME
+#             * **Name:** $NAME
                                                                
-            * **Version:** $VERSION                 
+#             * **Version:** $VERSION                 
                                                                
-            * **Date:** $(date +'%d.%m.%Y')                    
+#             * **Date:** $(date +'%d.%m.%Y')                    
                                                                
-            $BODY          
-          "
-          &&
-          echo "RELEASE_BODY=$RELEASE_BODY" >> $GITHUB_ENV
+#             $BODY          
+#           "
+#           &&
+#           echo "RELEASE_BODY=$RELEASE_BODY" >> $GITHUB_ENV
 
 
-      - name: Create Release
-        id: create_release
-        env:
-          VERSION: ${{ github.event.pull_request.title }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-          RELEASE_BODY: ${{ env.RELEASE_BODY }}
-        run: |
-          echo $RELEASE_BODY
+#       - name: Create Release
+#         id: create_release
+#         env:
+#           VERSION: ${{ github.event.pull_request.title }}
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+#           RELEASE_BODY: ${{ env.RELEASE_BODY }}
+#         run: |
+#           echo $RELEASE_BODY
 #         with:
 #           tag_name: ${{ env.VERSION }}
 #           release_name: ${{ env.VERSION }}
