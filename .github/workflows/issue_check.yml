@@ -8,12 +8,14 @@ jobs:
     name: Check if pull request has linked issues
     runs-on: ubuntu-latest
     steps:
-      - name: Get issues
-        id: get-issues
-        uses: mondeja/pr-linked-issues-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-      - name: PR has not linked issues
-        if: join(steps.get-issues.outputs.issues) == ''
-        run: 
-          exit 1
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Get Linked Issues Action
+        uses: kin/gh-action-get-linked-issues@v1.0
+        id: linked-issues
+        with:
+          access-token: "${{ secrets.CROSS_REPO_TOKEN }}"
+          
+      - name: test
+        run: |
+          echo ${{ steps.linked-issues.outputs.issues }}
