@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Get issues
         id: get-issues
-        uses: mondeja/pr-linked-issues-action@v2
+        uses: mondeja/pr-linked-issues-action@v2.2.1
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       - name: PR has not linked issues
