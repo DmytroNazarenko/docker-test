@@ -5,7 +5,8 @@ on:
     
 jobs:
   migrate-issue:
-    if: 'private' in github.event.issue.labels
+    runs-on: ubuntu-latest
+    if: contains(github.event.issue.labels.*.name, 'private')
     steps:
     - run: |
-      echo "AAA"
+        echo "AAA"
