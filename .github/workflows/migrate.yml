@@ -1,0 +1,11 @@
+on:
+  issues:
+    types: [opened]
+    
+    
+jobs:
+  migrate-issue:
+    if: 'private' in github.event.issue.labels
+    steps:
+    - run: |
+      echo "AAA"
