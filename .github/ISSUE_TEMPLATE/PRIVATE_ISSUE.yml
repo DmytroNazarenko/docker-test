@@ -31,7 +31,7 @@ body:
       label: In which repositories should be migrated?
       multiple: true
       options:
-        - None
+        - Do not migrate
         - skaled
         - IMA
         - skale-consensus
