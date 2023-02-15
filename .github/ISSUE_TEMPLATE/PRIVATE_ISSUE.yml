@@ -1,6 +1,6 @@
 name: Private issue
 description: Create a private issue for internal usage
-title: ""
+title: "[Bug]: "
 labels: ["private"]
 body:
   - type: markdown
