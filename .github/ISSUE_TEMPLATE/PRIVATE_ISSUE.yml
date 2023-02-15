@@ -30,12 +30,13 @@ body:
     attributes:
       label: In which repositories should be migrated?
       multiple: true
-      required: true
       options:
         - None
         - skaled
         - IMA
         - skale-consensus
+    validations:
+      required: true
   - type: textarea
     id: logs
     attributes:
