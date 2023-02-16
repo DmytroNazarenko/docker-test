@@ -10,6 +10,4 @@ jobs:
     - run: |
         - name: Get event keys
           run: |
-            for key in "${!github.event[@]}"; do
-              echo "$key"
-            done
+            echo ${{ github.event.issue.bodyResourcePath }}
