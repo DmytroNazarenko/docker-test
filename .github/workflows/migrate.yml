@@ -8,6 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
-        - name: Get event keys
-          run: |
-            echo ${{ github.event.issue.bodyResourcePath }}
+        echo "${{ github.event.issue.bodyResourcePath }}"
