@@ -6,7 +6,6 @@ on:
 jobs:
   migrate-issue:
     runs-on: ubuntu-latest
-    if: contains(github.event.issue.labels.*.name, 'private')
     steps:
     - run: |
-        echo ${{ github.event.issue.number }}
+        echo ${{ github.event.issue.body }}
