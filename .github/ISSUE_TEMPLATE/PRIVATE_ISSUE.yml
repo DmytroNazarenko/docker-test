@@ -28,7 +28,7 @@ body:
         IMA contract mainnet: 
         ...add required versions
     validations:
-      required: true
+      required: false
   - type: textarea
     id: environment
     attributes:
@@ -40,19 +40,19 @@ body:
         Skale Manager version:
         IMA contract version: 
     validations:
-      required: true
+      required: false
   - type: dropdown
     id: migrate-to
     attributes:
       label: In which repositories should be migrated?
-      multiple: true
+      multiple: false
       options:
         - Do not migrate
         - skaled
         - IMA
         - skale-consensus
     validations:
-      required: true
+      required: false
   - type: textarea
     id: logs
     attributes:
