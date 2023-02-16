@@ -8,4 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
-        echo ${{ github.context.payload.inputs.migrate-to }}
+        - name: Get event keys
+          run: |
+            for key in "${!github.event[@]}"; do
+              echo "$key"
+            done
