@@ -44,10 +44,9 @@ body:
   - type: dropdown
     id: migrate-to
     attributes:
-      label: In which repositories should be migrated?
-      multiple: false
+      label: Migrate to
+      multiple: true
       options:
-        - Do not migrate
         - skaled
         - IMA
         - skale-consensus
