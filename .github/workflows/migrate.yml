@@ -14,3 +14,11 @@ jobs:
         issue_number: ${{ github.event.issue.number }}
     - run: 
         echo ${{ fromJson(steps.parse.outputs.payload)['what-happened'] }}
+    - name: Show parsed payload data
+      run: |
+        # Using the character `'` to prevent all characters enclosed within
+        # them from being treated as special characters (e.g. $ or `)
+        echo '${{ steps.parse.outputs.payload }}'
+
+        # Print the value of the "Name" field
+        echo '${{ fromJson(steps.parse.outputs.payload)["what-happened"] }}'
