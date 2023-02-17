@@ -7,15 +7,13 @@ jobs:
   migrate-issue:
     runs-on: ubuntu-latest
     steps:
-    - name: Parse issue
+    - name: Issue Forms Body Parser
       id: parse
-      uses: onmax/issue-form-parser@v1.4
-      with:
-        issue_number: ${{ github.event.issue.number }}
-
+      uses: zentered/issue-forms-body-parser@v2.0.0
+      
     # Examples on how to use the output
     - name: Show parsed payload data
       run: |
         # Using the character `'` to prevent all characters enclosed within
         # them from being treated as special characters (e.g. $ or `)
-        echo '${{ fromJSON(steps.parse.outputs.payload)["Versions"] }}'
+        echo '${{ steps.parse.outputs.data }}'
