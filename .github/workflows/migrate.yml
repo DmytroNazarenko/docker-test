@@ -16,4 +16,4 @@ jobs:
         echo "repos=$(echo ${{ toJSON(steps.parse.outputs.data) }} | jq -r '.[\"migrate-to\"].text')" >> $GITHUB_ENV\
       
     - run: |
-        echo {{ env.repos }}
+        echo "${{ env.repos }}"
