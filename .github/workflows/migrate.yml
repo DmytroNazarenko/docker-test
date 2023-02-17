@@ -21,4 +21,4 @@ jobs:
         echo '${{ steps.parse.outputs.payload }}'
 
         # Print the value of the "Name" field
-        echo '${{ fromJson(steps.parse.outputs.payload)["what-happened"] }}'
+        echo '${{ fromJson(steps.parse.outputs.payload)["Name"] }}'
