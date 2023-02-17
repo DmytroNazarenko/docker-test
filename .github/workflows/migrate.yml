@@ -17,4 +17,4 @@ jobs:
         # Using the character `'` to prevent all characters enclosed within
         # them from being treated as special characters (e.g. $ or `)
         echo ${{ steps.parse.outputs.data }}
-        echo ${{ toJSON(steps.parse.outputs.data) }} | jq -r '.["migrate-to"].lists'
+        echo ${{ toJSON(steps.parse.outputs.data) }} | jq -r '.["migrate-to"].content'
