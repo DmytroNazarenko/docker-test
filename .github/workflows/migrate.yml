@@ -12,8 +12,8 @@ jobs:
       uses: onmax/issue-form-parser@v1.4
       with:
         issue_number: ${{ github.event.issue.number }}
-    - run: 
-        echo ${{ fromJson(steps.parse.outputs.payload)['what-happened'] }}
+
+    # Examples on how to use the output
     - name: Show parsed payload data
       run: |
         # Using the character `'` to prevent all characters enclosed within
@@ -21,4 +21,4 @@ jobs:
         echo '${{ steps.parse.outputs.payload }}'
 
         # Print the value of the "Name" field
-        # echo '${{ fromJson(steps.parse.outputs.payload)["Name"] }}'
+        echo '${{ fromJson(steps.parse.outputs.payload)["Name"] }}'
