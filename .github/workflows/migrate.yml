@@ -11,7 +11,6 @@ jobs:
       id: parse
       uses: zentered/issue-forms-body-parser@v2.0.0
       
-    # Examples on how to use the output
     - name: Show parsed payload data
       run: |
         echo ${{ toJSON(steps.parse.outputs.data) }} | jq -r '.["migrate-to"].text'
