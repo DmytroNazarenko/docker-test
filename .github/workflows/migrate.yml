@@ -7,8 +7,10 @@ jobs:
   migrate-issue:
     runs-on: ubuntu-latest
     steps:
-    - name: Issue Forms Body Parser
+    - name: Parse issue
       id: parse
-      uses: zentered/issue-forms-body-parser@v2.0.0
+      uses: onmax/issue-form-parser@v1.4
+      with:
+        issue_number: ${{ github.event.issue.number }}
     - run: 
-        echo ${{ fromJson(steps.parse.outputs.data)['what-happened'] }}
+        echo ${{ fromJson(steps.parse.outputs.payload)['what-happened'] }}
