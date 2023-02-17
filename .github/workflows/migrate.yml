@@ -16,4 +16,4 @@ jobs:
       run: |
         # Using the character `'` to prevent all characters enclosed within
         # them from being treated as special characters (e.g. $ or `)
-        title=$(echo ${{ toJSON(steps.parse.outputs.data) }} | jq -r '.["what-happened"].title'
+        echo ${{ toJSON(steps.parse.outputs.data) }} | jq -r '.["what-happened"].title'
