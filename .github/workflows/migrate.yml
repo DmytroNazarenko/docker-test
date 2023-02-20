@@ -13,5 +13,5 @@ jobs:
       
     - name: Show parsed payload data
       run: |
-        a=${{ github.event.issue.body }}
+        a="${{ github.event.issue.body }}"
         echo "AAAA: $a";
