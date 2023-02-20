@@ -1,6 +1,6 @@
 on:
   issues:
-    types: [opened]
+    types: [opened, edited]
     
     
 jobs:
@@ -14,6 +14,3 @@ jobs:
     - name: Show parsed payload data
       run: |
         echo "${{ toJSON(steps.parse.outputs.data) }}"
-    
-    - run: |
-        echo "${{ env.repos }}"
