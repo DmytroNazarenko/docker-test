@@ -14,4 +14,4 @@ jobs:
     - name: Show parsed payload data
       run: |
         a="${{ steps.parse.outputs.data }}"
-        echo $a;
+        echo "AAAA: $a";
