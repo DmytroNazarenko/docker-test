@@ -15,6 +15,7 @@ jobs:
       env:
         GITHUB_CONTEXT: ${{ toJSON(steps.parse.outputs.data) }}
       run: |
-        echo "${{ env.GITHUB_CONTEXT }}"
+        echo "$GITHUB_CONTEXT"
+        #echo "${{ env.GITHUB_CONTEXT }}"
         # echo "logs=$(echo '${{ toJSON(steps.parse.outputs.data) }}' | jq -r '.["relevant-log-output"].text')" >> $GITHUB_ENV
         # echo "${{ env.logs }}";
