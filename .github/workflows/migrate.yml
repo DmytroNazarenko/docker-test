@@ -14,11 +14,11 @@ jobs:
     - name: Show parsed payload data
       continue-on-error: true
       env:
-        GITHUB_CONTEXT: ${{ toJSON(steps.parse.outputs.data) }}
+        GITHUB_CONTEXT: ${{ steps.parse.outputs.data }}
       run: |
         echo "$GITHUB_CONTEXT"
         #echo "${{ env.GITHUB_CONTEXT }}"
         #echo "logs=$(echo $GITHUB_CONTEXT | jq -r '.["relevant-log-output"].text')" >> $GITHUB_ENV
-        echo "logs=$(echo '$GITHUB_CONTEXT' | jq -r '.["relevant-log-output"].text')" >> $GITHUB_ENV
+        echo "logs=$(echo '${{ toJSON(env.GITHUB_CONTEXT) }}' | jq -r '.["relevant-log-output"].text')" >> $GITHUB_ENV
         echo "aaa: ${{ env.logs }}"
         # echo "${{ env.logs }}";
