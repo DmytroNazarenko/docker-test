@@ -13,6 +13,6 @@ jobs:
       
     - name: Show parsed payload data
       run: |
-        echo "${{ toJSON(steps.parse.outputs.data) }}"
+        echo "${{ steps.parse.outputs.data }}"
         # echo "logs=$(echo '${{ toJSON(steps.parse.outputs.data) }}' | jq -r '.["relevant-log-output"].text')" >> $GITHUB_ENV
         # echo "${{ env.logs }}";
