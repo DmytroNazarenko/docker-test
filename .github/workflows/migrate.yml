@@ -19,6 +19,6 @@ jobs:
         echo "$GITHUB_CONTEXT"
         #echo "${{ env.GITHUB_CONTEXT }}"
         #echo "logs=$(echo $GITHUB_CONTEXT | jq -r '.["relevant-log-output"].text')" >> $GITHUB_ENV
-        echo "logs=$(echo $GITHUB_CONTEXT | jq -r '.["relevant-log-output"].text')" >> $GITHUB_ENV
+        echo "logs=$(echo '$GITHUB_CONTEXT' | jq -r '.["relevant-log-output"].text')" >> $GITHUB_ENV
         echo "aaa: ${{ env.logs }}"
         # echo "${{ env.logs }}";
