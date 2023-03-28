@@ -30,7 +30,7 @@ jobs:
         echo AAAA
         
     outputs:
-     stable: ${{ env.NOT_STABLE }}
+     stable: ${{ env.STABLE }}
     
   test2:
     needs: [test]
@@ -38,5 +38,5 @@ jobs:
     name: test-2
     steps:
     - run: | 
-        echo ${{ env.NOT_STABLE }}
+        echo ${{ env.STABLE }}
         echo ${{ needs.test.outputs.stable }}
