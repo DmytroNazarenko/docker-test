@@ -28,6 +28,9 @@ jobs:
       if: ${{ env.NOT_STABLE }}
       run: |
         echo AAAA
+        
+    outputs:
+     stable: ${{ env.NOT_STABLE }}
     
   test2:
     needs: [test]
@@ -35,4 +38,5 @@ jobs:
     name: test-2
     steps:
     - run: | 
-        echo ${{ env.STABLE }}
+        echo ${{ env.NOT_STABLE }}
+        echo ${{ needs.test.outputs.stable }}
