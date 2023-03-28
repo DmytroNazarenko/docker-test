@@ -35,8 +35,9 @@ jobs:
   test2:
     needs: [test]
     runs-on: ubuntu-latest
+    env:
+      STABLE: ${{ needs.test.outputs.stable }}
     name: test-2
     steps:
     - run: | 
         echo ${{ env.STABLE }}
-        echo ${{ needs.test.outputs.stable }}
