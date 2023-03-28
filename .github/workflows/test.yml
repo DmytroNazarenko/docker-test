@@ -26,7 +26,7 @@ jobs:
     - name: Publish on npm
       if: ${{ env.NOT_STABLE }}
       run: |
-        echo AAA
+        echo AAAA
     
   test2:
     needs: [test]
