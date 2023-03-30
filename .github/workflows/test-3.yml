@@ -5,8 +5,8 @@ on:
         required: true
         type: string
 
-test2:
-    needs: [test]
+jobs:
+  test2:
     runs-on: ubuntu-latest
     env:
       VERSION: ${{ inputs.version }}
