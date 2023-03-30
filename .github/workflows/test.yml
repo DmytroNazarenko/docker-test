@@ -33,6 +33,7 @@ jobs:
     
   test2:
     needs: [test]
+    name: Check functional tests
     uses: ./.github/workflows/test-3.yml
     with:
       version: ${{ needs.test.outputs.stable }}
