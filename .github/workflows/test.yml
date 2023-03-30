@@ -38,8 +38,6 @@ jobs:
       STABLE: ${{ needs.test.outputs.stable }}
     name: test-2
     steps:
-    - uses: actions/checkout@v3
+    - uses: ./.github/workflows/test-3.yml
       with:
-        repository: DmytroNazarenko/hello-world
-    - run: | 
-        ls -la
+        version: ${{ env.stable }}
