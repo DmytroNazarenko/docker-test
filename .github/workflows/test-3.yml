@@ -1,0 +1,20 @@
+on:
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
+
+test2:
+    needs: [test]
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ inputs.version }}
+    name: test-2
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        repository: DmytroNazarenko/hello-world
+    - run: | 
+        ls -la
+        echo ${{ secrets.VERSION }}
