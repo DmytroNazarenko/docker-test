@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       VERSION: ${{ inputs.version }}
-    name: test-2
     steps:
     - uses: actions/checkout@v3
       with:
