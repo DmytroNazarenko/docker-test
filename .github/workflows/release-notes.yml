@@ -1,11 +1,8 @@
 name: Release
 on:
-  push:
-    branches-ignore:
-      - develop
-  check_run:
+  workflow_run:
     workflows: ["Build and publish"]
-    types:
+    types: 
       - completed
 
 jobs:
