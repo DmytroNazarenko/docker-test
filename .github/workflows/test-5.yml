@@ -23,13 +23,10 @@ on:
         - RelWithDebInfo
         default: RelWithDebInfo
       node_type:
-        description: 'Node type of skaled build'
-        type: choice
+        description: 'Historic build'
+        type: boolean
         required: true
-        options: 
-        - Core
-        - Historic
-        default: Core
+        default: true
 
 
 jobs:
