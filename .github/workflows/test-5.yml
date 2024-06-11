@@ -1,0 +1,68 @@
+name: Build and publish
+on:
+  workflow_dispatch:
+    inputs:
+      branch_name:
+        description: 'Branch name'
+        default: ''
+        required: true
+      image_version:
+        description: 'Image version for docker hub'
+        default: ''
+        required: true
+      cmake_options:
+        description: 'Additional cmake options'
+        default: ''
+        required: false
+      build_type:
+        description: 'Build type of skaled binary'
+        type: choice
+        required: true
+        options: 
+        - Debug
+        - RelWithDebInfo
+        default: RelWithDebInfo
+      node_type:
+        description: 'Node type of skaled build'
+        type: choice
+        required: true
+        options: 
+        - Core
+        - Historic
+        default: Core
+
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      HOST: ${{ secrets.HOST }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set version and branch
+      run: |
+        export BRANCH=${GITHUB_REF##*/}
+        echo $BRANCH
+        test $BRANCH = "stable" && export STABLE=true || export NOT_STABLE=true
+        echo "STABLE=$STABLE" >> $GITHUB_ENV
+        echo "NOT_STABLE=$NOT_STABLE" >> $GITHUB_ENV
+        echo $STABLE
+    - name: Publish on npm (stable)
+      if: ${{ env.STABLE }}
+      run: |
+        echo BBB
+  
+    - name: Publish on npm
+      if: ${{ env.NOT_STABLE }}
+      run: |
+        echo AAAA
+        
+    outputs:
+     stable: ${{ env.STABLE }}
+    
+  test2:
+    needs: [test]
+    name: Check functional tests
+    uses: ./.github/workflows/test-3.yml
+    with:
+      version: ${{ needs.test.outputs.stable }}
