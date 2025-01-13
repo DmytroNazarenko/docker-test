@@ -1,15 +1,9 @@
 name: PR Nightly Tests (Simulated)
 
 on:
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize # Optional: runs on new commits to the PR
-
   schedule:
     # Run every minute to simulate nightly tests
-    - cron: '52 18 * * *'
+    - cron: '53 18 * * *'
 
 jobs:
   nightly-tests:
