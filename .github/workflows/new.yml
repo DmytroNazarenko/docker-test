@@ -21,10 +21,13 @@ jobs:
               repo: context.repo.repo,
               state: 'open'
             });
-            const prNumbers = prs.data.map(pr => pr.number);
-            console.log("Open PR Numbers:", prNumbers);
-            core.setOutput('pr-numbers', JSON.stringify(prNumbers || []));
+            const prNumbers = prs.data.map(pr => ({ number: pr.number, sha: pr.head.sha }));
+            console.log("Open PRs:", prNumbers);
+            core.setOutput('pr-numbers', JSON.stringify(prNumbers));
           result-encoding: json
+
+      - name: Debug PR Numbers
+        run: echo "PR Numbers: ${{ steps.pr-list.outputs.pr-numbers }}"
 
       - name: Run Tests for Open PRs
         if: ${{ steps.pr-list.outputs.pr-numbers != '[]' }}
@@ -38,15 +41,15 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            console.log(core.getInput('pr-numbers'));
-            const prNumbers = JSON.parse(core.getInput('pr-numbers') || '[]');
-            console.log("Processing PR Numbers:", prNumbers);
-            for (const prNumber of prNumbers) {
+            const prs = JSON.parse(`${
+              { steps.pr-list.outputs.pr-numbers }
+            }`);
+            for (const pr of prs) {
               github.rest.repos.createCommitStatus({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                sha: prNumber.sha,
-                state: 'success', // Set based on test results
+                sha: pr.sha,
+                state: 'success', // Update based on actual test results
                 context: 'Nightly Tests',
                 description: `Nightly test results: success`,
                 target_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
