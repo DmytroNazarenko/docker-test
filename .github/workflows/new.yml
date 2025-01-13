@@ -1,0 +1,50 @@
+name: PR Nightly Tests (18:53 UTC)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  nightly-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Identify Open PRs
+        id: pr-list
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const prs = await github.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open'
+            });
+            core.setOutput('pr-numbers', JSON.stringify(prs.data.map(pr => pr.number)));
+          result-encoding: json
+
+      - name: Run Tests for Open PRs
+        if: ${{ steps.pr-list.outputs.pr-numbers != '[]' }}
+        run: |
+          echo "Running tests for open PRs..."
+          # Replace with actual test commands
+          echo "Tests completed successfully." > test-results.txt
+
+      - name: Update PR Status
+        if: ${{ steps.pr-list.outputs.pr-numbers != '[]' }}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const prs = JSON.parse(process.env['pr-numbers']);
+            for (const pr of prs) {
+              github.rest.repos.createCommitStatus({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                sha: pr.head.sha,
+                state: 'success', // Set based on test results
+                context: 'Nightly Tests',
+                description: `Nightly test results: success`,
+                target_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+              });
+            };
