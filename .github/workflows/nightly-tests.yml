@@ -1,0 +1,45 @@
+name: PR Nightly Tests
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize # Optional: runs on new commits in the PR
+
+jobs:
+  nightly-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Run Tests
+        run: |
+          # Simulate running tests (replace this with your actual test commands)
+          echo "Running tests..."
+          echo "Tests completed successfully." > test-results.txt
+
+      - name: Check Test Results
+        id: test-status
+        run: |
+          # Check the simulated test results and set the status (success/failure)
+          if grep -q "successfully" test-results.txt; then
+            echo "status=success" >> $GITHUB_ENV
+          else
+            echo "status=failure" >> $GITHUB_ENV
+
+      - name: Set PR Status
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: process.env.status, // This dynamically sets 'success' or 'failure'
+              context: 'Nightly Tests',
+              description: `Nightly test results: ${process.env.status}`,
+              target_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+            });
