@@ -3,6 +3,7 @@ name: PR Nightly Tests
 on:
   schedule:
     - cron: '11 20 * * *'
+  workflow_dispatch:
 
 jobs:
   nightly-tests:
