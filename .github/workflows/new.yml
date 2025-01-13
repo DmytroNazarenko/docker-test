@@ -42,7 +42,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const prs = JSON.parse("${{ steps.pr-list.outputs.pr-numbers }}");
+            const prs = JSON.parse('${{ steps.pr-list.outputs.pr-numbers }}');
             for (const pr of prs) {
               github.rest.repos.createCommitStatus({
                 owner: context.repo.owner,
