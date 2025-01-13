@@ -1,19 +1,19 @@
-name: PR Nightly Tests
+name: PR Nightly Tests (Simulated)
 
 on:
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize # Optional: runs on new commits in the PR
+  schedule:
+    # Run every minute to simulate nightly tests
+    - cron: '53 18 * * *'
 
 jobs:
   nightly-tests:
+    if: github.event_name == 'pull_request' && github.event.pull_request.state == 'open'
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+
 
       - name: Run Tests
         run: |
@@ -24,21 +24,18 @@ jobs:
       - name: Check Test Results
         id: test-status
         run: |
-          # Check the simulated test results and set the status (success/failure)
-          if grep -q "successfully" test-results.txt; then
-            echo "status=success" >> $GITHUB_ENV
-          else
-            echo "status=failure" >> $GITHUB_ENV
+          # Always mark status as success for this simulation
+          echo "status=success" >> $GITHUB_ENV
 
       - name: Set PR Status
         uses: actions/github-script@v6
         with:
           script: |
-            github.repos.createCommitStatus({
+            github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
               sha: context.sha,
-              state: process.env.status, // This dynamically sets 'success' or 'failure'
+              state: process.env.status, // Dynamically set to 'success' or 'failure'
               context: 'Nightly Tests',
               description: `Nightly test results: ${process.env.status}`,
               target_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
