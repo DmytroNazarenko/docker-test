@@ -21,7 +21,9 @@ jobs:
               repo: context.repo.repo,
               state: 'open'
             });
-            core.setOutput('pr-numbers', JSON.stringify(prs.data.map(pr => pr.number)));
+            const prNumbers = prs.data.map(pr => pr.number);
+            console.log("Open PR Numbers:", prNumbers);
+            core.setOutput('pr-numbers', JSON.stringify(prNumbers || []));
           result-encoding: json
 
       - name: Run Tests for Open PRs
@@ -36,15 +38,16 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const prs = JSON.parse(process.env['pr-numbers']);
-            for (const pr of prs) {
+            const prNumbers = JSON.parse(core.getInput('pr-numbers') || '[]');
+            console.log("Processing PR Numbers:", prNumbers);
+            for (const prNumber of prNumbers) {
               github.rest.repos.createCommitStatus({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                sha: pr.head.sha,
+                sha: prNumber.sha,
                 state: 'success', // Set based on test results
                 context: 'Nightly Tests',
                 description: `Nightly test results: success`,
                 target_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
               });
-            };
+            }
