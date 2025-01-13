@@ -3,7 +3,7 @@ name: PR Nightly Tests (18:53 UTC)
 on:
   schedule:
     # Run daily at 18:53 UTC
-    - cron: '58 18 * * *'
+    - cron: '01 20 * * *'
 
 jobs:
   nightly-tests:
