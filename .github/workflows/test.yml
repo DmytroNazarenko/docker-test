@@ -18,6 +18,7 @@ jobs:
         echo "STABLE=$STABLE" >> $GITHUB_ENV
         echo "NOT_STABLE=$NOT_STABLE" >> $GITHUB_ENV
         echo $STABLE
+        sleep 60
     - name: Publish on npm (stable)
       if: ${{ env.STABLE }}
       run: |
