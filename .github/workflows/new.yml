@@ -27,7 +27,8 @@ jobs:
           result-encoding: json
 
       - name: Debug PR Numbers
-        run: echo "PR Numbers: ${{ steps.pr-list.outputs.pr-numbers }}"
+        run: |
+          echo "PR Numbers: ${{ steps.pr-list.outputs.pr-numbers }}"
 
       - name: Run Tests for Open PRs
         if: ${{ steps.pr-list.outputs.pr-numbers != '[]' }}
