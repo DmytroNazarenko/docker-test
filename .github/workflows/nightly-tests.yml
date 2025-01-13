@@ -9,7 +9,7 @@ on:
 
   schedule:
     # Run every minute to simulate nightly tests
-    - cron: '50 18 * * *'
+    - cron: '52 18 * * *'
 
 jobs:
   nightly-tests:
