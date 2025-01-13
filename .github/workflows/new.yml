@@ -38,6 +38,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            console.log(core.getInput('pr-numbers'));
             const prNumbers = JSON.parse(core.getInput('pr-numbers') || '[]');
             console.log("Processing PR Numbers:", prNumbers);
             for (const prNumber of prNumbers) {
