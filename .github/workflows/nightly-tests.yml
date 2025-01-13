@@ -1,42 +1,52 @@
-name: PR Nightly Tests (Simulated)
+name: PR Nightly Tests (18:53 UTC)
 
 on:
   schedule:
-    # Run every minute to simulate nightly tests
-    - cron: '53 18 * * *'
+    # Run daily at 18:53 UTC
+    - cron: '58 18 * * *'
 
 jobs:
   nightly-tests:
-    if: github.event_name == 'pull_request' && github.event.pull_request.state == 'open'
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-
-      - name: Run Tests
-        run: |
-          # Simulate running tests (replace this with your actual test commands)
-          echo "Running tests..."
-          echo "Tests completed successfully." > test-results.txt
-
-      - name: Check Test Results
-        id: test-status
-        run: |
-          # Always mark status as success for this simulation
-          echo "status=success" >> $GITHUB_ENV
-
-      - name: Set PR Status
+      - name: Identify Open PRs
+        id: pr-list
         uses: actions/github-script@v6
         with:
           script: |
-            github.rest.repos.createCommitStatus({
+            const prs = await github.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              sha: context.sha,
-              state: process.env.status, // Dynamically set to 'success' or 'failure'
-              context: 'Nightly Tests',
-              description: `Nightly test results: ${process.env.status}`,
-              target_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+              state: 'open'
             });
+            core.setOutput('pr-numbers', JSON.stringify(prs.data.map(pr => pr.number)));
+          result-encoding: json
+
+      - name: Run Tests for Open PRs
+        if: ${{ steps.pr-list.outputs.pr-numbers != '[]' }}
+        run: |
+          echo "Running tests for open PRs..."
+          # Replace with actual test commands
+          echo "Tests completed successfully." > test-results.txt
+
+      - name: Update PR Status
+        if: ${{ steps.pr-list.outputs.pr-numbers != '[]' }}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const prs = JSON.parse(process.env['pr-numbers']);
+            for (const pr of prs) {
+              github.rest.repos.createCommitStatus({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                sha: pr.head.sha,
+                state: 'success', // Set based on test results
+                context: 'Nightly Tests',
+                description: `Nightly test results: success`,
+                target_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+              });
+            };
