@@ -1,4 +1,4 @@
-name: PR Nightly Tests (18:53 UTC)
+name: PR Daily Tests
 
 on:
   workflow_dispatch:
@@ -11,20 +11,45 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Identify Open PRs
+      - name: Identify Open PRs with Recent Commits
         id: pr-list
         uses: actions/github-script@v6
         with:
           script: |
+            const { Octokit } = require("@octokit/rest");
+            const github = new Octokit({ auth: process.env.GITHUB_TOKEN });
+            const oneDayAgo = new Date();
+            oneDayAgo.setDate(oneDayAgo.getDate() - 1);
+
             const prs = await github.rest.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'open'
             });
-            const prNumbers = prs.data.map(pr => ({ number: pr.number, sha: pr.head.sha }));
-            console.log("Open PRs:", prNumbers);
-            core.setOutput('pr-numbers', JSON.stringify(prNumbers));
+
+            const filteredPRs = [];
+            for (const pr of prs.data) {
+              const commits = await github.rest.pulls.listCommits({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr.number
+              });
+
+              const recentCommits = commits.data.filter(commit => {
+                const commitDate = new Date(commit.commit.author.date);
+                return commitDate >= oneDayAgo;
+              });
+
+              if (recentCommits.length > 0) {
+                filteredPRs.push({ number: pr.number, sha: pr.head.sha });
+              }
+            }
+
+            console.log("Filtered PRs with recent commits:", filteredPRs);
+            core.setOutput('pr-numbers', JSON.stringify(filteredPRs));
           result-encoding: json
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Debug PR Numbers
         run: |
@@ -33,7 +58,7 @@ jobs:
       - name: Run Tests for Open PRs
         if: ${{ steps.pr-list.outputs.pr-numbers != '[]' }}
         run: |
-          echo "Running tests for open PRs..."
+          echo "Running tests for PRs with recent commits..."
           # Replace with actual test commands
           echo "Tests completed successfully." > test-results.txt
 
