@@ -14,6 +14,8 @@ jobs:
       - name: Identify Open PRs with Recent Commits
         id: pr-list
         uses: actions/github-script@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           script: |
             const { Octokit } = require("@octokit/rest");
@@ -48,8 +50,6 @@ jobs:
             console.log("Filtered PRs with recent commits:", filteredPRs);
             core.setOutput('pr-numbers', JSON.stringify(filteredPRs));
           result-encoding: json
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Debug PR Numbers
         run: |
